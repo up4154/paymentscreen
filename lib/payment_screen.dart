@@ -57,8 +57,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30),),
                 color :const Color(0xFFfad586),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: const Offset(
+                      1.0,
+                      1.0,
+                    ), //Offset
+                    blurRadius: 6.0,
+                    spreadRadius: 2.0,
+                  ), //BoxShadow
+                  BoxShadow(
+                    color: Colors.white,
+                    offset: const Offset(0.0, 0.0),
+                    blurRadius: 0.0,
+                    spreadRadius: 0.0,
+                  ),],
               ),
-              height:160,
+              height:180,
 
               child: Padding(
                 padding: const EdgeInsets.only(top:30),
@@ -79,8 +95,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         Text("Table -11",
                           style: TextStyle(fontSize: 23,fontWeight: FontWeight.w500),),
                         CircleAvatar(
-                          backgroundColor: Colors.grey,
-                          child: Icon(Icons.person,color: Colors.black,),
+                          backgroundImage: NetworkImage('https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')
                         ),
                       ],
                     ),
@@ -89,51 +104,96 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          OutlineButton(
-                            onPressed: () {},
-                            highlightedBorderColor: Colors.black87,
-                            textColor: Colors.black87,
-                            child: Icon(
-                              Icons.camera_alt,
-                              size: 24,
-                            ),
-                            padding: EdgeInsets.all(16),
-                            shape: CircleBorder(),
+                          Column(
+                            children: [
+                              OutlineButton(
+                                onPressed: () {},
+                                highlightedBorderColor: Colors.black87,
+                                textColor: Colors.black87,
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  size: 24,
+                                ),
+                                padding: EdgeInsets.all(16),
+                                shape: CircleBorder(),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 2),
+                                child: Text('Discount',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                  ),),
+                              )
+                            ],
                           ),
-                          OutlineButton(
-                            onPressed: () {},
-                            highlightedBorderColor: Colors.black87,
-                            textColor: Colors.black87,
-                            child: Icon(
-                              Icons.safety_divider,
-                              size: 32,
-                            ),
-                            padding: EdgeInsets.all(16),
-                            shape: CircleBorder(),
+                          Column(
+                            children: [
+                              OutlineButton(
+                                onPressed: () {},
+                                highlightedBorderColor: Colors.black87,
+                                textColor: Colors.black87,
+                                child: Icon(
+                                  Icons.safety_divider,
+                                  size: 32,
+                                ),
+                                padding: EdgeInsets.all(16),
+                                shape: CircleBorder(),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 2),
+                                child: Text('Split',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                              )
+                            ],
                           ),
-                          OutlineButton(
-                            onPressed: () {},
-                            highlightedBorderColor: Colors.black87,
-                            textColor: Colors.black87,
-                            child: Icon(
-                              Icons.card_giftcard,
-                              size: 24,
-                            ),
+                          Column(
+                            children: [
+                              OutlineButton(
+                                onPressed: () {},
+                                highlightedBorderColor: Colors.black87,
+                                textColor: Colors.black87,
+                                child: Icon(
+                                  Icons.card_giftcard,
+                                  size: 24,
+                                ),
 
-                            padding: EdgeInsets.all(16),
-                            shape: CircleBorder(),
+                                padding: EdgeInsets.all(16),
+                                shape: CircleBorder(),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 2),
+                                child: Text('Points',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                              )
+                            ],
                           ),
-                          OutlineButton(
-                            onPressed: () {},
-                            highlightedBorderColor: Colors.black87,
-                            textColor: Colors.black87,
-                            child: Icon(
-                              Icons.animation_outlined,
-                              size: 24,
-                            ),
-                            padding: EdgeInsets.all(16),
-                            shape: CircleBorder(),
+                          Column(
+                            children: [
+                              OutlineButton(
+                                onPressed: () {},
+                                highlightedBorderColor: Colors.black87,
+                                textColor: Colors.black87,
+                                child: Icon(
+                                  Icons.animation_outlined,
+                                  size: 24,
+                                ),
+                                padding: EdgeInsets.all(16),
+                                shape: CircleBorder(),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 2),
+                                child: Text('Void',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                              )
+                            ],
                           ),
+
 
                         ],
                       ),
