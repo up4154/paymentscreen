@@ -204,17 +204,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ],
 
         ),
-      // appBar: AppBar(
-      //   backgroundColor: const Color(0xFFfad586),
-      //   title: Text(
-      //     "Table-11",
-      //     style: TextStyle(
-      //       color: Colors.black87,
-      //     ),
-      //   ),
-      //   centerTitle: true,
-      // ),
-      // drawer:Drawer(),
+    
     );
   }
 }
