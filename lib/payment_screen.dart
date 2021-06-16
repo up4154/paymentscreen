@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:paymentscreen/billing_type.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
-
 class _PaymentScreenState extends State<PaymentScreen> {
   var size,height,width;
-
   int _currentIndex = 0;
   bool isClickedCash = true;
   bool isClickedCard = true;
@@ -111,7 +110,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           Column(
                             children: [
                               OutlineButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                 showDialog(
+                                     context: context,
+                                   builder: (context){
+                                       return Discount();
+                                   }
+                                        );
+                                       },
+
                                 highlightedBorderColor: Colors.black87,
                                 textColor: Colors.black87,
                                 child: Icon(
