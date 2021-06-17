@@ -275,4 +275,3 @@ class _DiscountState extends State<Discount> {
     );
   }
 }
-

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:paymentscreen/billing_type.dart';
+import 'package:paymentscreen/redeem.dart';
+import 'package:paymentscreen/split_payment.dart';
+import 'package:paymentscreen/void.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -146,7 +149,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return Discount();
+                                        return SplitPay();
                                       }
                                   );
                                 },
@@ -171,7 +174,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           Column(
                             children: [
                               OutlineButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return RedeemPoint();
+                                      }
+                                  );
+                                },
                                 highlightedBorderColor: Colors.black87,
                                 textColor: Colors.black87,
                                 child: Icon(
@@ -193,7 +203,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           Column(
                             children: [
                               OutlineButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return VoidBill();
+                                      }
+                                  );
+                                },
                                 highlightedBorderColor: Colors.black87,
                                 textColor: Colors.black87,
                                 child: Icon(
