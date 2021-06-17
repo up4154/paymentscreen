@@ -13,6 +13,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool isClickedPayTm = true;
   bool isClickedZomato = true;
   bool isClickedUpi = true;
+  // bool isClickedButton = true;
+  // Color changeColor  = Color(0xFFfad586);
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -118,9 +120,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                    }
                                         );
                                        },
-
                                 highlightedBorderColor: Colors.black87,
                                 textColor: Colors.black87,
+                                // splashColor: isClickedButton? Colors.white : Color(0xFFfad586),
                                 child: Icon(
                                   Icons.sell_outlined,
                                   size: 24,
@@ -140,7 +142,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           Column(
                             children: [
                               OutlineButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return Discount();
+                                      }
+                                  );
+                                },
                                 highlightedBorderColor: Colors.black87,
                                 textColor: Colors.black87,
                                 child: Icon(

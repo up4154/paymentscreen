@@ -1,7 +1,5 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class Discount extends StatefulWidget {
   @override
@@ -17,42 +15,24 @@ class _DiscountState extends State<Discount> {
   bool isClicked4= true;
   bool isClickedAdd= true;
   bool isClickedCancel= true;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: EdgeInsets.only(left: 20,right: 20),
+      insetPadding: EdgeInsets.only(left: 20,right: 20,top: 140),
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       elevation: 16,
       child:
       Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(top: 8.0),
         child: SingleChildScrollView(
           child: Container(
-            height: 600,
+            height: 430,
             child: ListView(
               children: <Widget>[
                 Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5,bottom: 10),
-                      child: Container(
-                        decoration: BoxDecoration(
-                           border: Border.all(
-                             color: Color(0xFFfad586),
-                             width: 2.5
-                           )
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.all(5),
-                          child: Text('Discount',style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30
-                          ),),
-                        ),
-                      ),
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -69,7 +49,7 @@ class _DiscountState extends State<Discount> {
                               borderRadius: BorderRadius.circular(35),
 
                             ),
-                            height: 45,
+                            height: 35,
                             width: 100,
                           ),
                           onTap: (){
@@ -90,7 +70,7 @@ class _DiscountState extends State<Discount> {
                               color: isClickedDiscountCash ? Colors.white : Color(0xFFfad586),
                               borderRadius: BorderRadius.circular(35),
                             ),
-                            height: 45,
+                            height: 35,
                             width: 100,
                           ),
                           onTap: (){
@@ -104,7 +84,7 @@ class _DiscountState extends State<Discount> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20,left: 50,bottom: 10),
+                  padding: const EdgeInsets.only(top: 15,left: 50),
                   child: Text('Amount',
                   style: TextStyle(
                     color: Colors.white,
@@ -113,9 +93,9 @@ class _DiscountState extends State<Discount> {
                   ),),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:4,left: 30,bottom: 20),
+                  padding: const EdgeInsets.only(top:4,left: 45,bottom: 20,right: 45),
                   child: Container(
-
+                    height: 40,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30),
@@ -156,8 +136,8 @@ class _DiscountState extends State<Discount> {
                           borderRadius: BorderRadius.circular(15),
 
                         ),
-                        height: 100,
-                        width: 100,
+                        height: 90,
+                        width: 90,
                       ),
                       onTap: (){
                         setState(() {
@@ -177,8 +157,8 @@ class _DiscountState extends State<Discount> {
                           color: isClicked2 ? Colors.white : Color(0xFFfad586),
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        height: 100,
-                        width: 100,
+                        height: 90,
+                        width: 90,
                       ),
                       onTap: (){
                         setState(() {
@@ -205,8 +185,8 @@ class _DiscountState extends State<Discount> {
                             borderRadius: BorderRadius.circular(15),
 
                           ),
-                          height: 100,
-                          width: 100,
+                          height: 90,
+                          width: 90,
                         ),
                         onTap: (){
                           setState(() {
@@ -225,8 +205,8 @@ class _DiscountState extends State<Discount> {
                             color: isClicked4 ? Colors.white : Color(0xFFfad586),
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          height: 100,
-                          width: 100,
+                          height: 90,
+                          width: 90,
                         ),
                         onTap: (){
                           setState(() {
@@ -255,7 +235,7 @@ class _DiscountState extends State<Discount> {
                           borderRadius: BorderRadius.circular(45),
 
                         ),
-                        height: 80,
+                        height: 60,
                         width: 130,
                       ),
                       onTap: (){
@@ -276,7 +256,7 @@ class _DiscountState extends State<Discount> {
                           color: isClickedCancel ? Colors.white : Color(0xFFfad586),
                           borderRadius: BorderRadius.circular(45),
                         ),
-                        height: 80,
+                        height: 60,
                         width: 130,
                       ),
                       onTap: (){
