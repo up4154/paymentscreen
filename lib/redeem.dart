@@ -97,7 +97,6 @@ class _RedeemPointState extends State<RedeemPoint> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: TextFormField(
-                              keyboardType:TextInputType.number,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),

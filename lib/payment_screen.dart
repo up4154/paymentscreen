@@ -54,7 +54,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
             label: '',
             icon: Icon(Icons.shopping_cart),
           ),
-
         ],
       ),
 
@@ -675,6 +674,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           textScaleFactor: 3.5,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ))),
+
               ),
             )
           ],
