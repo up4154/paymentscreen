@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:paymentscreen/payment_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
-
   @override
   _CartScreenState createState() => _CartScreenState();
 }
@@ -23,7 +23,6 @@ class _CartScreenState extends State<CartScreen> {
       _counter--;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -62,8 +61,8 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      appBar: AppBar(
+        flexibleSpace:  Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
@@ -77,7 +76,7 @@ class _CartScreenState extends State<CartScreen> {
                       1.0,
                       1.0,
                     ), //Offset
-                    blurRadius: 6.0,
+                    blurRadius: 0.0,
                     spreadRadius: 2.0,
                   ), //BoxShadow
                   BoxShadow(
@@ -111,600 +110,121 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               ),
             ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 25,left: 25,right: 25,bottom: 25),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Table-11',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15
-                          ),),
-                          Text('John Smith',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15
-                            ),),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20,bottom: 20),
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                            borderRadius: BorderRadius.circular(35),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: const Offset(
-                                  0.0,
-                                  1.0,
-                                ), //Offset
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                              ), //BoxShadow
-                              BoxShadow(
-                                color: Colors.white,
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
-                              ),],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('Chicken Burger',
-                                style: TextStyle(
-                                  fontSize: 17                                ),),
-                              ),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed:_decrementCounter,
-                                      icon:Icon(Icons.remove_circle),
-                                      splashRadius: 30,
-                                    ),
-                                    Text(
-                                        '$_counter',
-                                        style: TextStyle(
-                                            fontSize: 20
-                                        )
-                                    ),
-                                    IconButton(
-                                      onPressed:_incrementCounter,
-                                      icon:Icon(Icons.add_circle_outlined),
-                                      splashRadius: 30,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('\$4.99',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              IconButton(
-                                color: Colors.red,
-                                onPressed:_incrementCounter,
-                                icon:Icon(Icons.cancel),
-                                splashRadius: 30,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(35),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: const Offset(
-                                  0.0,
-                                  1.0,
-                                ), //Offset
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                              ), //BoxShadow
-                              BoxShadow(
-                                color: Colors.white,
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
-                              ),],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right:45),
-                                child: Text('Coca Cola',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed:_decrementCounter,
-                                      icon:Icon(Icons.remove_circle),
-                                      splashRadius: 30,
-                                    ),
-                                    Text(
-                                        '$_counter',
-                                        style: TextStyle(
-                                            fontSize: 20
-                                        )
-                                    ),
-                                    IconButton(
-                                      onPressed:_incrementCounter,
-                                      icon:Icon(Icons.add_circle_outlined),
-                                      splashRadius: 30,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15,right: 10),
-                                child: Text('\$4.99',
-                                  style: TextStyle(
-                                      fontSize: 17     ),),
-                              ),
-                              IconButton(
-                                color: Colors.red,
-                                onPressed:_incrementCounter,
-                                icon:Icon(Icons.cancel),
-                                splashRadius: 30,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(35),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: const Offset(
-                                  0.0,
-                                  1.0,
-                                ), //Offset
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                              ), //BoxShadow
-                              BoxShadow(
-                                color: Colors.white,
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
-                              ),],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('Double Cheese',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed:_decrementCounter,
-                                      icon:Icon(Icons.remove_circle),
-                                      splashRadius: 30,
-                                    ),
-                                    Text(
-                                        '$_counter',
-                                        style: TextStyle(
-                                            fontSize: 20
-                                        )
-                                    ),
-                                    IconButton(
-                                      onPressed:_incrementCounter,
-                                      icon:Icon(Icons.add_circle_outlined),
-                                      splashRadius: 30,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('\$4.99',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              IconButton(
-                                color: Colors.red,
-                                onPressed:_incrementCounter,
-                                icon:Icon(Icons.cancel),
-                                splashRadius: 30,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(35),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: const Offset(
-                                  0.0,
-                                  1.0,
-                                ), //Offset
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                              ), //BoxShadow
-                              BoxShadow(
-                                color: Colors.white,
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
-                              ),],
-                          ),
-
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('Supreme Pizza',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed:_decrementCounter,
-                                      icon:Icon(Icons.remove_circle),
-                                      splashRadius: 30,
-                                    ),
-                                    Text(
-                                        '$_counter',
-                                        style: TextStyle(
-                                            fontSize: 20
-                                        )
-                                    ),
-                                    IconButton(
-                                      onPressed:_incrementCounter,
-                                      icon:Icon(Icons.add_circle_outlined),
-                                      splashRadius: 30,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('\$4.99',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              IconButton(
-                                color: Colors.red,
-                                onPressed:_incrementCounter,
-                                icon:Icon(Icons.cancel),
-                                splashRadius: 30,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(35),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: const Offset(
-                                  0.0,
-                                  1.0,
-                                ), //Offset
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                              ), //BoxShadow
-                              BoxShadow(
-                                color: Colors.white,
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
-                              ),],
-                          ),
-
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('Supreme Pizza',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed:_decrementCounter,
-                                      icon:Icon(Icons.remove_circle),
-                                      splashRadius: 30,
-                                    ),
-                                    Text(
-                                        '$_counter',
-                                        style: TextStyle(
-                                            fontSize: 20
-                                        )
-                                    ),
-                                    IconButton(
-                                      onPressed:_incrementCounter,
-                                      icon:Icon(Icons.add_circle_outlined),
-                                      splashRadius: 30,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('\$4.99',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              IconButton(
-                                color: Colors.red,
-                                onPressed:_incrementCounter,
-                                icon:Icon(Icons.cancel),
-                                splashRadius: 30,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(35),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: const Offset(
-                                  0.0,
-                                  1.0,
-                                ), //Offset
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                              ), //BoxShadow
-                              BoxShadow(
-                                color: Colors.white,
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
-                              ),],
-                          ),
-
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('Supreme Pizza',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed:_decrementCounter,
-                                      icon:Icon(Icons.remove_circle),
-                                      splashRadius: 30,
-                                    ),
-                                    Text(
-                                        '$_counter',
-                                        style: TextStyle(
-                                            fontSize: 20
-                                        )
-                                    ),
-                                    IconButton(
-                                      onPressed:_incrementCounter,
-                                      icon:Icon(Icons.add_circle_outlined),
-                                      splashRadius: 30,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('\$4.99',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              IconButton(
-                                color: Colors.red,
-                                onPressed:_incrementCounter,
-                                icon:Icon(Icons.cancel),
-                                splashRadius: 30,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(35),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: const Offset(
-                                  0.0,
-                                  1.0,
-                                ), //Offset
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                              ), //BoxShadow
-                              BoxShadow(
-                                color: Colors.white,
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
-                              ),],
-                          ),
-
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('Supreme Pizza',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed:_decrementCounter,
-                                      icon:Icon(Icons.remove_circle),
-                                      splashRadius: 30,
-                                    ),
-                                    Text(
-                                        '$_counter',
-                                        style: TextStyle(
-                                            fontSize: 20
-                                        )
-                                    ),
-                                    IconButton(
-                                      onPressed:_incrementCounter,
-                                      icon:Icon(Icons.add_circle_outlined),
-                                      splashRadius: 30,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left:15,right: 10),
-                                child: Text('\$4.99',
-                                  style: TextStyle(
-                                      fontSize: 17                                ),),
-                              ),
-                              IconButton(
-                                color: Colors.red,
-                                onPressed:_incrementCounter,
-                                icon:Icon(Icons.cancel),
-                                splashRadius: 30,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 12,left: 25,right: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Table-11',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15
+                      ),),
+                    Text('John Smith',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15
+                      ),),
+                  ],
+                ),
               ),
             ),
-            // Container(
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.only(topLeft:Radius.circular(30),topRight:Radius.circular(30),),
-            //     color :const Color(0xFFfad586),
-            //     boxShadow: [
-            //       BoxShadow(
-            //         color: Colors.grey,
-            //         offset: const Offset(
-            //           1.0,
-            //           1.0,
-            //         ), //Offset
-            //         blurRadius: 6.0,
-            //         spreadRadius: 2.0,
-            //       ), //BoxShadow
-            //       BoxShadow(
-            //         color: Colors.white,
-            //         offset: const Offset(0.0, 0.0),
-            //         blurRadius: 0.0,
-            //         spreadRadius: 0.0,
-            //       ),],
-            //   ),
-            //   height:120,
-            //   child:Padding(
-            //     padding: const EdgeInsets.only(top:30),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //       children: [
-            //         Text('\$32.44'),
-            //         GestureDetector(
-            //
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // ),
+          ]
+        ),
+        toolbarHeight: 170,
+        backgroundColor: Colors.white,
+      ),
+      body: BodyLayout(),
+      bottomSheet: Container(
+        height: 80,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(topRight:Radius.circular(25),topLeft:Radius.circular(25),),
+          color :const Color(0xFFfad586),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              offset: const Offset(
+                1.0,
+                1.0,
+              ), //Offset
+              blurRadius: 6.0,
+              spreadRadius: 2.0,
+            ), //BoxShadow
+            BoxShadow(
+              color: Colors.white,
+              offset: const Offset(0.0, 0.0),
+              blurRadius: 0.0,
+              spreadRadius: 0.0,
+            ),],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 40),
+              child: Text('\$32.44',
+              style: TextStyle(
+                  color: Colors.black87,
+                fontSize: 20
+              ),),
+            ),
+            OutlinedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PaymentScreen()),
+                );
+              },
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))
+                ),
+                side: MaterialStateProperty.all(BorderSide(width: 2))
+                ),
+              icon: Icon(Icons.payment,
+              color: Colors.black87,),
+              label: Text("PAY",style: TextStyle(
+                color: Colors.black87,
+                fontSize: 20
+              ),),
+            )
           ],
         ),
-
-      ),
+      )
     );
   }
 }
+
+
+class BodyLayout extends StatelessWidget {
+  const BodyLayout({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _myListView(context);
+  }
+}
+Widget _myListView(BuildContext context) {
+
+  final europeanCountries = ['Albania', 'Andorra', 'Armenia', 'Austria',
+    'Azerbaijan', 'Belarus', 'Belgium', 'Bosnia and Herzegovina', 'Bulgaria',
+    'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Estonia', 'Finland',
+    'France', 'Georgia', 'Germany', 'Greece', 'Hungary', 'Iceland', 'Ireland',
+    'Italy', 'Kazakhstan', 'Kosovo', 'Latvia', 'Liechtenstein', 'Lithuania',
+    'Luxembourg', 'Macedonia', 'Malta', 'Moldova', 'Monaco', 'Montenegro',
+    'Netherlands', 'Norway', 'Poland', 'Portugal', 'Romania', 'Russia',
+    'San Marino', 'Serbia', 'Slovakia', 'Slovenia', 'Spain', 'Sweden',
+    'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom'];
+
+  return ListView.builder(
+    itemCount: europeanCountries.length,
+    itemBuilder: (context, index) {
+      return ListTile(
+        title: Text(europeanCountries[index]),
+      );
+    },
+  );
+
+}
+
