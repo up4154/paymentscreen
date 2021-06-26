@@ -32,7 +32,7 @@ class _CartScreenState extends State<CartScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFFfad586),
+        selectedItemColor: const Color(0xFFFFD45F),
         unselectedItemColor: Colors.grey[800],
         currentIndex: _currentIndex,
         onTap: (value) {
@@ -68,7 +68,7 @@ class _CartScreenState extends State<CartScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30),),
-                color :const Color(0xFFfad586),
+                color :const Color(0xFFFFD45F),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey,
@@ -140,7 +140,7 @@ class _CartScreenState extends State<CartScreen> {
         height: 80,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(topRight:Radius.circular(25),topLeft:Radius.circular(25),),
-          color :const Color(0xFFfad586),
+          color :const Color(0xFFFFD45F),
           boxShadow: [
             BoxShadow(
               color: Colors.grey,

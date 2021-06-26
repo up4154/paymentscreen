@@ -23,90 +23,90 @@ class _VoidBillState extends State<VoidBill> {
           padding: const EdgeInsets.only(top: 8.0),
           child: SingleChildScrollView(
             child: Container(
-              height: 430,
-              child: ListView(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('VOID BILL',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold
-                      ),),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 80,right: 30,left: 30),
-                        child: Column(
-                          children: [
-                            Text('Are you Sure You want to Void this Bill.Once Voided it cannot be reversed',
-                              style: TextStyle(
+                height: 430,
+                child: ListView(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('VOID BILL',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold
+                          ),),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 80,right: 30,left: 30),
+                          child: Column(
+                            children: [
+                              Text('Are you Sure You want to Void this Bill.Once Voided it cannot be reversed',
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 150),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            GestureDetector(
-                              child: Container(
-                                child:Center(child: Text('Yes',
-                                  style: TextStyle(fontWeight:FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 150),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                child: Container(
+                                  child:Center(child: Text('Yes',
+                                    style: TextStyle(fontWeight:FontWeight.bold,
 
+                                        fontSize: 30
+                                    ),
+                                  ),
+
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: isClickedAdd ? Colors.white : Color(0xFFFFD45F),
+                                    borderRadius: BorderRadius.circular(45),
+
+                                  ),
+                                  height: 60,
+                                  width: 130,
+                                ),
+                                onTap: (){
+                                  setState(() {
+                                    isClickedAdd =! isClickedAdd;
+                                  });
+                                },
+                              ),
+                              GestureDetector(
+                                child: Container(
+                                  child:Center(child: Text('No',style: TextStyle(fontWeight:FontWeight.bold,
                                       fontSize: 30
                                   ),
-                                ),
+                                  ),
 
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: isClickedCancel ? Colors.white : Color(0xFFFFD45F),
+                                    borderRadius: BorderRadius.circular(45),
+                                  ),
+                                  height: 60,
+                                  width: 130,
                                 ),
-                                decoration: BoxDecoration(
-                                  color: isClickedAdd ? Colors.white : Color(0xFFfad586),
-                                  borderRadius: BorderRadius.circular(45),
-
-                                ),
-                                height: 60,
-                                width: 130,
+                                onTap: (){
+                                  setState(() {
+                                    isClickedCancel =! isClickedCancel;
+                                  });
+                                },
                               ),
-                              onTap: (){
-                                setState(() {
-                                  isClickedAdd =! isClickedAdd;
-                                });
-                              },
-                            ),
-                            GestureDetector(
-                              child: Container(
-                                child:Center(child: Text('No',style: TextStyle(fontWeight:FontWeight.bold,
-                                    fontSize: 30
-                                ),
-                                ),
-
-                                ),
-                                decoration: BoxDecoration(
-                                  color: isClickedCancel ? Colors.white : Color(0xFFfad586),
-                                  borderRadius: BorderRadius.circular(45),
-                                ),
-                                height: 60,
-                                width: 130,
-                              ),
-                              onTap: (){
-                                setState(() {
-                                  isClickedCancel =! isClickedCancel;
-                                });
-                              },
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              )
+                      ],
+                    ),
+                  ],
+                )
             ),
           ),
         )

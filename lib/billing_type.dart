@@ -45,7 +45,7 @@ class _DiscountState extends State<Discount> {
 
                             ),
                             decoration: BoxDecoration(
-                              color: isClickedDiscount ? Colors.white : Color(0xFFfad586),
+                              color: isClickedDiscount ? Colors.white : Color(0xFFFFD45F),
                               borderRadius: BorderRadius.circular(35),
 
                             ),
@@ -67,7 +67,7 @@ class _DiscountState extends State<Discount> {
 
                             ),
                             decoration: BoxDecoration(
-                              color: isClickedDiscountCash ? Colors.white : Color(0xFFfad586),
+                              color: isClickedDiscountCash ? Colors.white : Color(0xFFFFD45F),
                               borderRadius: BorderRadius.circular(35),
                             ),
                             height: 35,
@@ -132,7 +132,7 @@ class _DiscountState extends State<Discount> {
 
                         ),
                         decoration: BoxDecoration(
-                          color: isClicked1 ? Colors.white : Color(0xFFfad586),
+                          color: isClicked1 ? Colors.white : Color(0xFFFFD45F),
                           borderRadius: BorderRadius.circular(15),
 
                         ),
@@ -154,7 +154,7 @@ class _DiscountState extends State<Discount> {
 
                         ),
                         decoration: BoxDecoration(
-                          color: isClicked2 ? Colors.white : Color(0xFFfad586),
+                          color: isClicked2 ? Colors.white : Color(0xFFFFD45F),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         height: 90,
@@ -181,7 +181,7 @@ class _DiscountState extends State<Discount> {
                           ),
                           ),
                           decoration: BoxDecoration(
-                            color: isClicked3 ? Colors.white : Color(0xFFfad586),
+                            color: isClicked3 ? Colors.white : Color(0xFFFFD45F),
                             borderRadius: BorderRadius.circular(15),
 
                           ),
@@ -202,7 +202,7 @@ class _DiscountState extends State<Discount> {
                           ),
                           ),
                           decoration: BoxDecoration(
-                            color: isClicked4 ? Colors.white : Color(0xFFfad586),
+                            color: isClicked4 ? Colors.white : Color(0xFFFFD45F),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           height: 90,
@@ -231,7 +231,7 @@ class _DiscountState extends State<Discount> {
 
                         ),
                         decoration: BoxDecoration(
-                          color: isClickedAdd ? Colors.white : Color(0xFFfad586),
+                          color: isClickedAdd ? Colors.white : Color(0xFFFFD45F),
                           borderRadius: BorderRadius.circular(45),
 
                         ),
@@ -253,7 +253,7 @@ class _DiscountState extends State<Discount> {
 
                         ),
                         decoration: BoxDecoration(
-                          color: isClickedCancel ? Colors.white : Color(0xFFfad586),
+                          color: isClickedCancel ? Colors.white : Color(0xFFFFD45F),
                           borderRadius: BorderRadius.circular(45),
                         ),
                         height: 60,

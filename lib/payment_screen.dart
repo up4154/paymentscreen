@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:paymentscreen/billing_type.dart';
 import 'package:paymentscreen/redeem.dart';
 import 'package:paymentscreen/split_payment.dart';
 import 'package:paymentscreen/void.dart';
+import 'package:http/http.dart' as http;
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -16,8 +19,32 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool isClickedPayTm = true;
   bool isClickedZomato = true;
   bool isClickedUpi = true;
-  // bool isClickedButton = true;
-  // Color changeColor  = Color(0xFFfad586);
+
+  List<String> _payMeth =["","","","","",];
+  _PaymentScreenState() {
+    fetchData().then((val) => setState(() {
+      _payMeth= val;
+    }));
+  }
+
+  Future<List<String>> fetchData() async {
+    Map data = await getData();
+    List<String> paymentMethod = [
+      data['cash'],
+      data['card'],
+      data['cheque'],
+      data['bank_transfer'],
+      data['other'],
+    ];
+    // print(data['cash']);
+    return paymentMethod;
+  }
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -27,7 +54,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFFfad586),
+        selectedItemColor: const Color(0xFFFFD45F),
         unselectedItemColor: Colors.grey[800],
         currentIndex: _currentIndex,
         onTap: (value) {
@@ -63,7 +90,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30),),
-                color :const Color(0xFFfad586),
+                color :const Color(0xFFFFD45F),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey,
@@ -115,16 +142,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             children: [
                               OutlineButton(
                                 onPressed: () {
-                                 showDialog(
-                                     context: context,
-                                   builder: (context){
-                                       return Discount();
-                                   }
-                                        );
-                                       },
+                                  showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return Discount();
+                                      }
+                                  );
+                                },
                                 highlightedBorderColor: Colors.black87,
                                 textColor: Colors.black87,
-                                // splashColor: isClickedButton? Colors.white : Color(0xFFfad586),
+                                // splashColor: isClickedButton? Colors.white : Color(0xFFFFD45F),
                                 child: Icon(
                                   Icons.sell_outlined,
                                   size: 24,
@@ -213,7 +240,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 highlightedBorderColor: Colors.black87,
                                 textColor: Colors.black87,
                                 child: Icon(
-                                    Icons.highlight_off_outlined,
+                                  Icons.highlight_off_outlined,
                                   size: 24,
                                 ),
                                 padding: EdgeInsets.all(16),
@@ -262,13 +289,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             child: Container(
                               child: GestureDetector(
                                 child: Container(
-                                  child:Center(child: Text('Cash',
+                                  child:Center(child: Text(_payMeth[0],
                                     style: TextStyle(fontWeight:FontWeight.w600,
-                                        fontSize: 18
+                                        fontSize: 18,
+                                      color: Colors.black
                                     ),
                                   )),
                                   decoration: BoxDecoration(
-                                    color: isClickedCash ? Colors.white : Color(0xFFfad586),
+                                    color: isClickedCash ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(35),
                                     boxShadow: [
                                       BoxShadow(
@@ -303,14 +331,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             child: Container(
                               child: GestureDetector(
                                 child: Container(
-                                  child:Center(child: Text('Card',style: TextStyle(fontWeight:FontWeight.w600,
+                                  child:Center(child: Text(_payMeth[1],style: TextStyle(fontWeight:FontWeight.w600,
                                       fontSize: 18
                                   ),
                                   ),
 
                                   ),
                                   decoration: BoxDecoration(
-                                    color: isClickedCard ? Colors.white : Color(0xFFfad586),
+                                    color: isClickedCard ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(35),
                                     boxShadow: [
                                       BoxShadow(
@@ -345,11 +373,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             child: Container(
                               child: GestureDetector(
                                 child: Container(
-                                  child:Center(child: Text('PayTM',style: TextStyle(fontWeight:FontWeight.w600,
+                                  child:Center(child: Text(_payMeth[2],style: TextStyle(fontWeight:FontWeight.w600,
                                       fontSize: 18
                                   ),)),
                                   decoration: BoxDecoration(
-                                    color: isClickedPayTm ? Colors.white : Color(0xFFfad586),
+                                    color: isClickedPayTm ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(35),
                                     boxShadow: [
                                       BoxShadow(
@@ -392,11 +420,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             child: Container(
                               child: GestureDetector(
                                 child: Container(
-                                  child:Center(child: Text('Zomato',style: TextStyle(fontWeight:FontWeight.w600,
+                                  child:Center(child: Text(_payMeth[3],style: TextStyle(fontWeight:FontWeight.w600,
                                       fontSize: 18
                                   ),)),
                                   decoration: BoxDecoration(
-                                    color: isClickedZomato ? Colors.white : Color(0xFFfad586),
+                                    color: isClickedZomato ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(35),
                                     boxShadow: [
                                       BoxShadow(
@@ -416,7 +444,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       ),],
                                   ),
                                   height: 45,
-                                  width: 100,
+                                  width: 150,
                                 ),
                                 onTap: (){
                                   setState(() {
@@ -431,11 +459,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             child: Container(
                               child: GestureDetector(
                                 child: Container(
-                                  child:Center(child: Text('UPI',style: TextStyle(fontWeight:FontWeight.w600,
+                                  child:Center(child: Text(_payMeth[4],style: TextStyle(fontWeight:FontWeight.w600,
                                       fontSize: 18
                                   ),)),
                                   decoration: BoxDecoration(
-                                    color: isClickedUpi ? Colors.white : Color(0xFFfad586),
+                                    color: isClickedUpi ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(35),
                                     boxShadow: [
                                       BoxShadow(
@@ -516,8 +544,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         prefix: Text('\$'),
                                         helperText: 'Payment Amount',
                                         helperStyle: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500
                                         ),
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(30),
@@ -577,7 +605,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       decoration: InputDecoration(
                                         helperText: 'Card Number',
                                         helperStyle: TextStyle(
-                                          fontSize: 15,
+                                            fontSize: 15,
                                             fontWeight: FontWeight.w500
                                         ),
                                         border: OutlineInputBorder(
@@ -663,7 +691,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           blurRadius: 0.0,
                           spreadRadius: 0.0,
                         ),],
-                      color : const Color(0xFFfad586),
+                      color : const Color(0xFFFFD45F),
                     ),
                     margin: EdgeInsets.only(top: 10),
                     width: 330,
@@ -682,4 +710,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
     );
   }
+}
+Future<Map<String, dynamic>> getData() async {
+  String myUrl = "https://pos.sero.app/connector/api/payment-methods";
+  http.Response response = await http.get((Uri.parse(myUrl)), headers: {
+    'Authorization':
+    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlhNTYwNGYxZDAxMzU2NTRhY2YyYjE4MmEyOGUwMjA4M2QxOGUxY2Y1ZTY0MzM1MzdmNzc3MzFkMTMzZjNmNWQ5MTU3ZTEwOTQ5NDE3ZmQ3In0.eyJhdWQiOiIzIiwianRpIjoiOWE1NjA0ZjFkMDEzNTY1NGFjZjJiMTgyYTI4ZTAyMDgzZDE4ZTFjZjVlNjQzMzUzN2Y3NzczMWQxMzNmM2Y1ZDkxNTdlMTA5NDk0MTdmZDciLCJpYXQiOjE2MjM2NjAxMzksIm5iZiI6MTYyMzY2MDEzOSwiZXhwIjoxNjU1MTk2MTM5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.WGLAu9KVi-jSt0q9yUyENDoEQnSLF1o0tezej5YozBFXJVQuEvSykvA9T6nnJghujQ2uU-nxUCRftLBhYzGjsu26YoKZBin70k1cqoYDfIWlVZ-fNkJi1vAXYOk9Pzxz7YFBa6hgz1MyUlDOI1LsSSsJh87hGBzIN6Ib_cYmGoo8KHVEfqbDtCNnZdOq68vjhwf6dwYEJUtxanaocuC-_XHkdM7769JiO48Ot93BqZjmRuVwvK9zE_8bilmhktlgD65ahgKOSS2yQlMdpgpsqP1W5Mfy_SBu32BkqTpAc5v2QWRTVhevES-blsfqdoZ59aw0OzrxyC8PvipyuhGQjs6V7eCrKK0jOei9g4RyhKlQueDXxxrWrqsStIsPzkn-kXA5k2NINIFgr2MlLtypTR76xnncWE5rCqm39K5V2_q3aXDQvCHdl3SVBKDqwNCUKq1CxbJlkF8r1R1mxXxN76TBZbcalO7wUX0F-D1j9oWkwXSZBe7L6vQQqvhC2AsQO2LB4QiByuFi1-J4h05vM3Kab0nmRvVeNYekhNP9HtTGWCH_UDuiDAp23VqUhMTrFygUAPEASU0fnw-rMKhrll_O0wMaBE33ZfItsV0o6pHCQhUjsDKwfmgVynOyYu0rX_huVN_PUBSYQVuCiabUMp8Q5Dv7n8Ky7_yI8XypQK4'
+  });
+  return json.decode(response.body);
 }

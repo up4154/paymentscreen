@@ -61,15 +61,15 @@ class _RedeemPointState extends State<RedeemPoint> {
                             child: TextFormField(
                               keyboardType:TextInputType.number,
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(color:Colors.brown),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(color:Colors.brown),
-                                ),
-                                hintText: 'How many Points to Redeem'
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(color:Colors.brown),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(color:Colors.brown),
+                                  ),
+                                  hintText: 'How many Points to Redeem'
                               ),
                             ),
                           ),
@@ -128,7 +128,7 @@ class _RedeemPointState extends State<RedeemPoint> {
 
                                   ),
                                   decoration: BoxDecoration(
-                                    color: isClickedAdd ? Colors.white : Color(0xFFfad586),
+                                    color: isClickedAdd ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(45),
 
                                   ),
@@ -150,7 +150,7 @@ class _RedeemPointState extends State<RedeemPoint> {
 
                                   ),
                                   decoration: BoxDecoration(
-                                    color: isClickedCancel ? Colors.white : Color(0xFFfad586),
+                                    color: isClickedCancel ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(45),
                                   ),
                                   height: 60,

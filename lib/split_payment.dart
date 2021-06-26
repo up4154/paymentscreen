@@ -339,25 +339,25 @@ class _SplitPayState extends State<SplitPay> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             GestureDetector(
-                              child: Container(
-                                child:Center(child: Text('Add Row',
-                                  style: TextStyle(fontWeight:FontWeight.bold,
-                                      fontSize: 20
+                                child: Container(
+                                  child:Center(child: Text('Add Row',
+                                    style: TextStyle(fontWeight:FontWeight.bold,
+                                        fontSize: 20
+                                    ),
                                   ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: isClickedAdd ? Colors.white : Color(0xFFFFD45F),
+                                    borderRadius: BorderRadius.circular(45),
+                                  ),
+                                  height: 60,
+                                  width: 120,
                                 ),
-                                ),
-                                decoration: BoxDecoration(
-                                  color: isClickedAdd ? Colors.white : Color(0xFFfad586),
-                                  borderRadius: BorderRadius.circular(45),
-                                ),
-                                height: 60,
-                                width: 120,
-                              ),
-                              onTap:(){
-                                setState(() {
-                                  _addMulRow();
-                                });
-                              }
+                                onTap:(){
+                                  setState(() {
+                                    _addMulRow();
+                                  });
+                                }
                               // _addMulRow,
                             )
                           ],
@@ -386,7 +386,7 @@ class _SplitPayState extends State<SplitPay> {
                                       blurRadius: 0.0,
                                       spreadRadius: 0.0,
                                     ),],
-                                  color : const Color(0xFFfad586),
+                                  color : const Color(0xFFFFD45F),
                                 ),
                                 margin: EdgeInsets.only(top: 10),
                                 width: 330,
