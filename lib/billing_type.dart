@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:paymentscreen/payment_screen.dart';
 
 class Discount extends StatefulWidget {
   @override
@@ -259,10 +260,11 @@ class _DiscountState extends State<Discount> {
                         height: 60,
                         width: 130,
                       ),
-                      onTap: (){
-                        setState(() {
-                          isClickedCancel =! isClickedCancel;
-                        });
+                      onTap :(){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PaymentScreen()),
+                        );
                       },
                     ),
                   ],

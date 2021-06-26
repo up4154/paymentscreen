@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paymentscreen/payment_screen.dart';
 
 class RedeemPoint extends StatefulWidget {
   const RedeemPoint({Key? key}) : super(key: key);
@@ -156,10 +157,11 @@ class _RedeemPointState extends State<RedeemPoint> {
                                   height: 60,
                                   width: 130,
                                 ),
-                                onTap: (){
-                                  setState(() {
-                                    isClickedCancel =! isClickedCancel;
-                                  });
+                                onTap :(){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => PaymentScreen()),
+                                  );
                                 },
                               ),
                             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paymentscreen/payment_screen.dart';
 
 class VoidBill extends StatefulWidget {
   const VoidBill({Key? key}) : super(key: key);
@@ -94,10 +95,11 @@ class _VoidBillState extends State<VoidBill> {
                                   height: 60,
                                   width: 130,
                                 ),
-                                onTap: (){
-                                  setState(() {
-                                    isClickedCancel =! isClickedCancel;
-                                  });
+                                onTap :(){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => PaymentScreen()),
+                                  );
                                 },
                               ),
                             ],

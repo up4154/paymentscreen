@@ -7,8 +7,8 @@ class CartScreen extends StatefulWidget {
   @override
   _CartScreenState createState() => _CartScreenState();
 }
-
 class _CartScreenState extends State<CartScreen> {
+  double totalAmount=32.44;
   int _currentIndex = 0;
   var size,height,width;
   int _counter =1;
@@ -163,7 +163,7 @@ class _CartScreenState extends State<CartScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 40),
-              child: Text('\$32.44',
+              child: Text('\$$totalAmount',
               style: TextStyle(
                   color: Colors.black87,
                 fontSize: 20

@@ -13,12 +13,18 @@ class PaymentScreen extends StatefulWidget {
 }
 class _PaymentScreenState extends State<PaymentScreen> {
   var size,height,width;
+  double totalAmount=32.44;
   int _currentIndex = 0;
   bool isClickedCash = true;
   bool isClickedCard = true;
   bool isClickedPayTm = true;
   bool isClickedZomato = true;
   bool isClickedUpi = true;
+
+  TextEditingController tipAmount = new TextEditingController();
+  TextEditingController balanceAmount = new TextEditingController();
+  TextEditingController paymentAmount = new TextEditingController();
+
 
   List<String> _payMeth =["","","","","",];
   _PaymentScreenState() {
@@ -539,9 +545,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   child: Container(
                                     height: 70,
                                     child: TextField(
+                                      controller: paymentAmount,
+                                      enableInteractiveSelection: false,
+                                      focusNode: new AlwaysDisabledFocusNode(),
                                       keyboardType:TextInputType.number,
                                       decoration: InputDecoration(
-                                        prefix: Text('\$'),
+                                        hintText: '\$$totalAmount',
+                                        hintStyle: TextStyle(
+                                          fontWeight: FontWeight.bold
+                                        ),
                                         helperText: 'Payment Amount',
                                         helperStyle: TextStyle(
                                             fontSize: 15,
@@ -566,6 +578,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   child: Container(
                                     height: 70,
                                     child: TextFormField(
+                                      controller: tipAmount,
                                       keyboardType:TextInputType.number,
                                       decoration: InputDecoration(
                                         prefix: Text('\$'),
@@ -628,6 +641,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   child: Container(
                                     height: 70,
                                     child: TextFormField(
+                                      controller: balanceAmount,
                                       keyboardType:TextInputType.number,
                                       decoration: InputDecoration(
                                         prefix: Text('\$'),
@@ -670,7 +684,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Container(
               child: GestureDetector(
                 onTap: () {
-                  setState(() => _currentIndex );
+                  print('hello');
                 },
                 child: Container(
                     decoration: BoxDecoration(
@@ -698,8 +712,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     height: 60,
                     child: Center(
                         child: Text(
-                          'Pay:\$32.44',
-                          textScaleFactor: 3.5,
+                          'Pay:\$$totalAmount',
+                          textScaleFactor: 3.1,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ))),
 
@@ -718,4 +732,8 @@ Future<Map<String, dynamic>> getData() async {
     'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlhNTYwNGYxZDAxMzU2NTRhY2YyYjE4MmEyOGUwMjA4M2QxOGUxY2Y1ZTY0MzM1MzdmNzc3MzFkMTMzZjNmNWQ5MTU3ZTEwOTQ5NDE3ZmQ3In0.eyJhdWQiOiIzIiwianRpIjoiOWE1NjA0ZjFkMDEzNTY1NGFjZjJiMTgyYTI4ZTAyMDgzZDE4ZTFjZjVlNjQzMzUzN2Y3NzczMWQxMzNmM2Y1ZDkxNTdlMTA5NDk0MTdmZDciLCJpYXQiOjE2MjM2NjAxMzksIm5iZiI6MTYyMzY2MDEzOSwiZXhwIjoxNjU1MTk2MTM5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.WGLAu9KVi-jSt0q9yUyENDoEQnSLF1o0tezej5YozBFXJVQuEvSykvA9T6nnJghujQ2uU-nxUCRftLBhYzGjsu26YoKZBin70k1cqoYDfIWlVZ-fNkJi1vAXYOk9Pzxz7YFBa6hgz1MyUlDOI1LsSSsJh87hGBzIN6Ib_cYmGoo8KHVEfqbDtCNnZdOq68vjhwf6dwYEJUtxanaocuC-_XHkdM7769JiO48Ot93BqZjmRuVwvK9zE_8bilmhktlgD65ahgKOSS2yQlMdpgpsqP1W5Mfy_SBu32BkqTpAc5v2QWRTVhevES-blsfqdoZ59aw0OzrxyC8PvipyuhGQjs6V7eCrKK0jOei9g4RyhKlQueDXxxrWrqsStIsPzkn-kXA5k2NINIFgr2MlLtypTR76xnncWE5rCqm39K5V2_q3aXDQvCHdl3SVBKDqwNCUKq1CxbJlkF8r1R1mxXxN76TBZbcalO7wUX0F-D1j9oWkwXSZBe7L6vQQqvhC2AsQO2LB4QiByuFi1-J4h05vM3Kab0nmRvVeNYekhNP9HtTGWCH_UDuiDAp23VqUhMTrFygUAPEASU0fnw-rMKhrll_O0wMaBE33ZfItsV0o6pHCQhUjsDKwfmgVynOyYu0rX_huVN_PUBSYQVuCiabUMp8Q5Dv7n8Ky7_yI8XypQK4'
   });
   return json.decode(response.body);
+}
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
