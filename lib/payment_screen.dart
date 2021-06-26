@@ -13,7 +13,10 @@ class PaymentScreen extends StatefulWidget {
 }
 class _PaymentScreenState extends State<PaymentScreen> {
   var size,height,width;
-  double totalAmount=32.44;
+  double paymentAmount=32.44;
+  double tipAmount =0.0;
+  double balanceAmount=5.0;
+  double toBePaid =0.0;
   int _currentIndex = 0;
   bool isClickedCash = true;
   bool isClickedCard = true;
@@ -21,10 +24,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool isClickedZomato = true;
   bool isClickedUpi = true;
 
-  TextEditingController tipAmount = new TextEditingController();
-  TextEditingController balanceAmount = new TextEditingController();
-  TextEditingController paymentAmount = new TextEditingController();
+  TextEditingController tipController = new TextEditingController();
 
+  void totalAmount(double paymentAmount,double tipAmount,double balanceAmount){
+    double totalAmount = paymentAmount + tipAmount -balanceAmount;
+    double sum = totalAmount;
+    setState(() {
+      toBePaid = sum;
+    });
+  }
 
   List<String> _payMeth =["","","","","",];
   _PaymentScreenState() {
@@ -53,9 +61,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    toBePaid = paymentAmount+balanceAmount;
+    // tipAmount =double.parse(tipController.text);
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
+    // totalAmount(paymentAmount, tipAmount, balanceAmount);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -545,12 +556,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   child: Container(
                                     height: 70,
                                     child: TextField(
-                                      controller: paymentAmount,
                                       enableInteractiveSelection: false,
                                       focusNode: new AlwaysDisabledFocusNode(),
                                       keyboardType:TextInputType.number,
                                       decoration: InputDecoration(
-                                        hintText: '\$$totalAmount',
+                                        hintText: '\$$paymentAmount',
                                         hintStyle: TextStyle(
                                           fontWeight: FontWeight.bold
                                         ),
@@ -578,7 +588,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   child: Container(
                                     height: 70,
                                     child: TextFormField(
-                                      controller: tipAmount,
+                                      controller: tipController,
                                       keyboardType:TextInputType.number,
                                       decoration: InputDecoration(
                                         prefix: Text('\$'),
@@ -613,9 +623,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   child: Container(
                                     height: 70,
                                     child: TextFormField(
+
                                       keyboardType:TextInputType.number,
                                       obscureText: true,
                                       decoration: InputDecoration(
+
                                         helperText: 'Card Number',
                                         helperStyle: TextStyle(
                                             fontSize: 15,
@@ -641,9 +653,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   child: Container(
                                     height: 70,
                                     child: TextFormField(
-                                      controller: balanceAmount,
+                                      enableInteractiveSelection: false,
+                                      focusNode: new AlwaysDisabledFocusNode(),
                                       keyboardType:TextInputType.number,
                                       decoration: InputDecoration(
+                                        hintText: '\$$balanceAmount',
+                                        hintStyle: TextStyle(
+                                            fontWeight: FontWeight.bold
+                                        ),
                                         prefix: Text('\$'),
                                         helperText: 'Balance Amount',
                                         helperStyle: TextStyle(
@@ -659,7 +676,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           borderSide: BorderSide(color:Colors.brown),
                                         ),
                                       ),
-
                                     ),
                                   ),
                                 ),
@@ -712,7 +728,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     height: 60,
                     child: Center(
                         child: Text(
-                          'Pay:\$$totalAmount',
+                          'Pay:\$$toBePaid',
                           textScaleFactor: 3.1,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ))),
