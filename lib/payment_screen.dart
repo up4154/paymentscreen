@@ -15,7 +15,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   var size,height,width;
   double paymentAmount=32.44;
   double tipAmount =0.0;
-  double balanceAmount=5.0;
+  double balanceAmount=7.0;
   double toBePaid =0.0;
   int _currentIndex = 0;
   bool isClickedCash = true;
@@ -61,7 +61,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    toBePaid = paymentAmount+balanceAmount;
+    toBePaid = (paymentAmount - (balanceAmount)).roundToDouble();
     // tipAmount =double.parse(tipController.text);
     size = MediaQuery.of(context).size;
     height = size.height;
