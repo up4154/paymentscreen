@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:paymentscreen/billing_type.dart';
 import 'package:paymentscreen/redeem.dart';
@@ -7,15 +6,17 @@ import 'package:paymentscreen/split_payment.dart';
 import 'package:paymentscreen/void.dart';
 import 'package:http/http.dart' as http;
 
+
 class PaymentScreen extends StatefulWidget {
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
+
 class _PaymentScreenState extends State<PaymentScreen> {
   var size,height,width;
   double paymentAmount=32.44;
   double tipAmount =0.0;
-  double balanceAmount=7.0;
+  double balanceAmount=10.0;
   double toBePaid =0.0;
   int _currentIndex = 0;
   bool isClickedCash = true;
