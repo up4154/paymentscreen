@@ -90,7 +90,7 @@ class _DiscountState extends State<Discount> {
                     child: TextFormField(
                       keyboardType:TextInputType.number,
                       decoration: InputDecoration(
-                        prefix: Text('\%'),
+                        prefix: dropdownValue =='Percentage %' ? Text('%') : Text('\$'),
                         helperStyle: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500
@@ -112,7 +112,10 @@ class _DiscountState extends State<Discount> {
                   children: [
                     GestureDetector(
                       child: Container(
-                        child:Center(child: Text('5%',style: TextStyle(fontWeight:FontWeight.bold,
+                        child:Center(child: dropdownValue =='Percentage %' ? Text('5%',style: TextStyle(fontWeight:FontWeight.bold,
+                            fontSize: 18
+                        ),
+                        ):Text('\$5',style: TextStyle(fontWeight:FontWeight.bold,
                             fontSize: 18
                         ),
                         ),
@@ -134,7 +137,10 @@ class _DiscountState extends State<Discount> {
                     ),
                     GestureDetector(
                       child: Container(
-                        child:Center(child: Text('10%',style: TextStyle(fontWeight:FontWeight.bold,
+                        child:Center(child: dropdownValue =='Percentage %' ? Text('10%',style: TextStyle(fontWeight:FontWeight.bold,
+                            fontSize: 18
+                        ),
+                        ):Text('\$10',style: TextStyle(fontWeight:FontWeight.bold,
                             fontSize: 18
                         ),
                         ),
@@ -162,10 +168,14 @@ class _DiscountState extends State<Discount> {
                     children: [
                       GestureDetector(
                         child: Container(
-                          child:Center(child: Text('15%',style: TextStyle(fontWeight:FontWeight.bold,
+                          child:Center(child: dropdownValue =='Percentage %' ? Text('15%',style: TextStyle(fontWeight:FontWeight.bold,
+                              fontSize: 18
+                          ),
+                          ):Text('\$15',style: TextStyle(fontWeight:FontWeight.bold,
                               fontSize: 18
                           ),
                           ),
+
                           ),
                           decoration: BoxDecoration(
                             color: isClicked3 ? Colors.white : Color(0xFFFFD45F),
@@ -183,10 +193,14 @@ class _DiscountState extends State<Discount> {
                       ),
                       GestureDetector(
                         child: Container(
-                          child:Center(child: Text('20%',style: TextStyle(fontWeight:FontWeight.bold,
+                          child:Center(child: dropdownValue =='Percentage %' ? Text('20%',style: TextStyle(fontWeight:FontWeight.bold,
+                              fontSize: 18
+                          ),
+                          ):Text('\$20',style: TextStyle(fontWeight:FontWeight.bold,
                               fontSize: 18
                           ),
                           ),
+
                           ),
                           decoration: BoxDecoration(
                             color: isClicked4 ? Colors.white : Color(0xFFFFD45F),

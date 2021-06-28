@@ -28,7 +28,7 @@ class _SplitPayState extends State<SplitPay> {
 
   void _addMulRow(){
     setState(() {
-      addRow ? null: _changed(true, "add");
+      addRow ? null : _changed(true, "add");
     });
   }
   @override
@@ -356,6 +356,7 @@ class _SplitPayState extends State<SplitPay> {
                                 onTap:(){
                                   setState(() {
                                     _addMulRow();
+                                    print('added');
                                   });
                                 }
                               // _addMulRow,
