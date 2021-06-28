@@ -17,6 +17,9 @@ class _DiscountState extends State<Discount> {
   bool isClickedAdd= true;
   bool isClickedCancel= true;
 
+  String dropdownValue ='Percentage %';
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -34,53 +37,36 @@ class _DiscountState extends State<Discount> {
               children: <Widget>[
                 Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        GestureDetector(
-                          child: Container(
-                            child:Center(child: Text('%',style: TextStyle(fontWeight:FontWeight.bold,
-                                fontSize: 18
+                    Container(
+                      height: 40,
+                      width: 140,
+                      decoration: BoxDecoration(
+                        color:Color(0xFFFFD45F) ,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: DropdownButton<String>(
+                          value: dropdownValue,
+                          items: [
+                            DropdownMenuItem(
+                              value: 'Percentage %',
+                              child: Text('Percentage %',
+                              ),
                             ),
+                            DropdownMenuItem(
+                              value: 'Fixed \$',
+                              child: Text('Fixed \$',
+                                ),
                             ),
-
-                            ),
-                            decoration: BoxDecoration(
-                              color: isClickedDiscount ? Colors.white : Color(0xFFFFD45F),
-                              borderRadius: BorderRadius.circular(35),
-
-                            ),
-                            height: 35,
-                            width: 100,
-                          ),
-                          onTap: (){
+                          ],
+                          onChanged: (value) {
                             setState(() {
-                              isClickedDiscount =! isClickedDiscount;
+                              dropdownValue = value!;
                             });
                           },
                         ),
-                        GestureDetector(
-                          child: Container(
-                            child:Center(child: Text('\$',style: TextStyle(fontWeight:FontWeight.bold,
-                                fontSize: 18
-                            ),
-                            ),
-
-                            ),
-                            decoration: BoxDecoration(
-                              color: isClickedDiscountCash ? Colors.white : Color(0xFFFFD45F),
-                              borderRadius: BorderRadius.circular(35),
-                            ),
-                            height: 35,
-                            width: 100,
-                          ),
-                          onTap: (){
-                            setState(() {
-                              isClickedDiscountCash =! isClickedDiscountCash;
-                            });
-                          },
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),

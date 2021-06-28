@@ -17,7 +17,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   double paymentAmount=32.44;
   double tipAmount =0.0;
   double balanceAmount=10.0;
-  double toBePaid =0.0;
+  String toBePaid ='0';
   int _currentIndex = 0;
   bool isClickedCash = true;
   bool isClickedCard = true;
@@ -25,14 +25,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool isClickedZomato = true;
   bool isClickedUpi = true;
 
-  TextEditingController tipController = new TextEditingController();
+  final _tipController = new TextEditingController();
 
-  void totalAmount(double paymentAmount,double tipAmount,double balanceAmount){
-    double totalAmount = paymentAmount + tipAmount -balanceAmount;
-    double sum = totalAmount;
+
+  bool isEnabled = false;
+
+  String totalAmount(double paymentAmount,double balanceAmount){
+    tipAmount =double.parse(_tipController.text);
+    double totalAmount = (paymentAmount + tipAmount -balanceAmount);
     setState(() {
-      toBePaid = sum;
+      toBePaid = totalAmount.toStringAsFixed(2);
     });
+    return toBePaid;
   }
 
   List<String> _payMeth =["","","","","",];
@@ -51,23 +55,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
       data['bank_transfer'],
       data['other'],
     ];
-    // print(data['cash']);
     return paymentMethod;
   }
   @override
   void initState() {
     fetchData();
     super.initState();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    toBePaid = (paymentAmount - (balanceAmount)).roundToDouble();
-    // tipAmount =double.parse(tipController.text);
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
-    // totalAmount(paymentAmount, tipAmount, balanceAmount);
+    // print(_tipController.text);
+
+    // toBePaid = double.parse(((paymentAmount - (balanceAmount)+tipAmount )).toStringAsFixed(2));
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -589,7 +593,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   child: Container(
                                     height: 70,
                                     child: TextFormField(
-                                      controller: tipController,
+                                      controller: _tipController,
                                       keyboardType:TextInputType.number,
                                       decoration: InputDecoration(
                                         prefix: Text('\$'),
@@ -698,43 +702,67 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 color: Colors.grey[300],
               ),
             ),
-            Container(
-              child: GestureDetector(
-                onTap: () {
-                  print('hello');
-                },
-                child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(35),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: const Offset(
-                            1.0,
-                            1.0,
-                          ), //Offset
-                          blurRadius: 6.0,
-                          spreadRadius: 2.0,
-                        ), //BoxShadow
-                        BoxShadow(
-                          color: Colors.white,
-                          offset: const Offset(0.0, 0.0),
-                          blurRadius: 0.0,
-                          spreadRadius: 0.0,
-                        ),],
-                      color : const Color(0xFFFFD45F),
-                    ),
-                    margin: EdgeInsets.only(top: 10),
-                    width: 330,
-                    height: 60,
-                    child: Center(
-                        child: Text(
-                          'Pay:\$$toBePaid',
-                          textScaleFactor: 3.1,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ))),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                OutlinedButton.icon(
+                  onPressed:(){
+                    setState(() {
+                      totalAmount(paymentAmount, balanceAmount);
+                      isEnabled=true;
+                    });
+                  },
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))
+                      ),
+                      side: MaterialStateProperty.all(BorderSide(width: 2))
+                  ),
 
-              ),
+                  label: Text("Confirm",style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 20
+                  ),),
+                  icon: Icon(Icons.check,
+                    color: Colors.black87,),
+                ),
+                Container(
+                  child: InkWell(
+                    onTap:isEnabled ? ()=> print('hello'): null,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(35),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: const Offset(
+                                1.0,
+                                1.0,
+                              ), //Offset
+                              blurRadius: 6.0,
+                              spreadRadius: 2.0,
+                            ), //BoxShadow
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: const Offset(0.0, 0.0),
+                              blurRadius: 0.0,
+                              spreadRadius: 0.0,
+                            ),],
+                           color : isEnabled ?  Color(0xFFFFD45F):Colors.grey,
+                        ),
+                        margin: EdgeInsets.only(top: 10),
+                        width: 100,
+                        height: 45,
+                        child: Center(
+                            child: Text(
+                              'Pay:\$$toBePaid',
+                              textScaleFactor: 1.0,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ))),
+
+                  ),
+                ),
+              ],
             )
           ],
         ),
