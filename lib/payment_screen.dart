@@ -13,7 +13,6 @@ class PaymentScreen extends StatefulWidget {
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
-
 class _PaymentScreenState extends State<PaymentScreen> {
   var size,height,width;
   double tipAmount =0.0;
