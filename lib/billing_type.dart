@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:paymentscreen/payment_screen.dart';
 
 class Discount extends StatefulWidget {
+   double Ammount=0.0;
+   Discount({ Key? key, required this.Ammount}) : super(key: key);
+
   @override
   _DiscountState createState() => _DiscountState();
 }
 
 class _DiscountState extends State<Discount> {
-  double paymentAmount =32.44;
   double discountAmount =0.0;
   bool isClickedDiscount= true;
   bool isClickedDiscountCash= true;
@@ -22,16 +24,16 @@ class _DiscountState extends State<Discount> {
 
   String dropdownValue ='Percentage %';
   final _amountController = new TextEditingController();
-  String totalAmount(double paymentAmount){
+  String totalAmount(){
     discountAmount =double.parse(_amountController.text);
     if(dropdownValue=='Percentage %'){
-    double totalAmount = (paymentAmount - (paymentAmount*discountAmount/100));
+    double totalAmount = (widget.Ammount - (widget.Ammount*discountAmount/100));
     setState(() {
       discountedAmount = totalAmount.toStringAsFixed(2);
     });}
     else{
       {
-        double totalAmount = (paymentAmount - discountAmount);
+        double totalAmount = (widget.Ammount - discountAmount);
         setState(() {
           discountedAmount = totalAmount.toStringAsFixed(2);
         });}
@@ -258,8 +260,11 @@ class _DiscountState extends State<Discount> {
                       ),
                       onTap: (){
                         setState(() {
-                          totalAmount(paymentAmount);
-                          print(discountedAmount);
+                          totalAmount();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: double.parse(discountedAmount),)),
+                          );
                         });
                       },
                     ),
@@ -281,7 +286,7 @@ class _DiscountState extends State<Discount> {
                       onTap :(){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PaymentScreen()),
+                          MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount,)),
                         );
                       },
                     ),

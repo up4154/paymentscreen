@@ -8,7 +8,7 @@ class CartScreen extends StatefulWidget {
   _CartScreenState createState() => _CartScreenState();
 }
 class _CartScreenState extends State<CartScreen> {
-  double paymentAmount=32.44;
+  double paymentAmount=32.50;
   int _currentIndex = 0;
   var size,height,width;
   int _counter =1;
@@ -173,7 +173,7 @@ class _CartScreenState extends State<CartScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PaymentScreen()),
+                  MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: paymentAmount,)),
                 );
               },
               style: ButtonStyle(

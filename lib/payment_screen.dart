@@ -8,13 +8,14 @@ import 'package:http/http.dart' as http;
 
 
 class PaymentScreen extends StatefulWidget {
+  double Ammount=0.0;
+  PaymentScreen({ Key? key, required this.Ammount}) : super(key: key);
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
   var size,height,width;
-  double paymentAmount=32.44;
   double tipAmount =0.0;
   double balanceAmount=10.0;
   String toBePaid ='0';
@@ -30,9 +31,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   bool isEnabled = false;
 
-  String totalAmount(double paymentAmount,double balanceAmount){
+  String totalAmount(){
     tipAmount =double.parse(_tipController.text);
-    double totalAmount = (paymentAmount + tipAmount -balanceAmount);
+    double totalAmount = ( widget.Ammount+ tipAmount -balanceAmount);
     setState(() {
       toBePaid = totalAmount.toStringAsFixed(2);
     });
@@ -164,7 +165,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return Discount();
+                                        return Discount(Ammount: widget.Ammount,);
                                       }
                                   );
                                 },
@@ -223,7 +224,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return RedeemPoint();
+                                        return RedeemPoint(Ammount: widget.Ammount,);
                                       }
                                   );
                                 },
@@ -252,7 +253,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return VoidBill();
+                                        return VoidBill(Ammount: widget.Ammount,);
                                       }
                                   );
                                 },
@@ -562,7 +563,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       focusNode: new AlwaysDisabledFocusNode(),
                                       keyboardType:TextInputType.number,
                                       decoration: InputDecoration(
-                                        hintText: '\$$paymentAmount',
+                                        hintText: '\$'+widget.Ammount.toStringAsFixed(2),
                                         hintStyle: TextStyle(
                                           fontWeight: FontWeight.bold
                                         ),
@@ -705,7 +706,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 OutlinedButton.icon(
                   onPressed:(){
                     setState(() {
-                      totalAmount(paymentAmount, balanceAmount);
+                      totalAmount();
                       isEnabled=true;
                     });
                   },
