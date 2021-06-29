@@ -69,9 +69,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
-    // print(_tipController.text);
-
-    // toBePaid = double.parse(((paymentAmount - (balanceAmount)+tipAmount )).toStringAsFixed(2));
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

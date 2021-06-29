@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:paymentscreen/payment_screen.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({Key? key}) : super(key: key);
+
   @override
   _CartScreenState createState() => _CartScreenState();
 }
 class _CartScreenState extends State<CartScreen> {
-  double totalAmount=32.44;
+  double paymentAmount=32.44;
   int _currentIndex = 0;
   var size,height,width;
   int _counter =1;
@@ -163,7 +163,7 @@ class _CartScreenState extends State<CartScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 40),
-              child: Text('\$$totalAmount',
+              child: Text('\$$paymentAmount',
               style: TextStyle(
                   color: Colors.black87,
                 fontSize: 20

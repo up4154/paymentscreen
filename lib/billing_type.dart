@@ -8,6 +8,8 @@ class Discount extends StatefulWidget {
 }
 
 class _DiscountState extends State<Discount> {
+  double paymentAmount =32.44;
+  double discountAmount =0.0;
   bool isClickedDiscount= true;
   bool isClickedDiscountCash= true;
   bool isClicked1= true;
@@ -16,9 +18,26 @@ class _DiscountState extends State<Discount> {
   bool isClicked4= true;
   bool isClickedAdd= true;
   bool isClickedCancel= true;
+  String  discountedAmount ='0';
 
   String dropdownValue ='Percentage %';
-
+  final _amountController = new TextEditingController();
+  String totalAmount(double paymentAmount){
+    discountAmount =double.parse(_amountController.text);
+    if(dropdownValue=='Percentage %'){
+    double totalAmount = (paymentAmount - (paymentAmount*discountAmount/100));
+    setState(() {
+      discountedAmount = totalAmount.toStringAsFixed(2);
+    });}
+    else{
+      {
+        double totalAmount = (paymentAmount - discountAmount);
+        setState(() {
+          discountedAmount = totalAmount.toStringAsFixed(2);
+        });}
+          }
+    return discountedAmount;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +107,7 @@ class _DiscountState extends State<Discount> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: TextFormField(
+                      controller: _amountController,
                       keyboardType:TextInputType.number,
                       decoration: InputDecoration(
                         prefix: dropdownValue =='Percentage %' ? Text('%') : Text('\$'),
@@ -221,27 +241,25 @@ class _DiscountState extends State<Discount> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    GestureDetector(
+                    InkWell(
                       child: Container(
                         child:Center(child: Text('Add',
                           style: TextStyle(fontWeight:FontWeight.bold,
-
                             fontSize: 30
                         ),
                         ),
-
                         ),
                         decoration: BoxDecoration(
                           color: isClickedAdd ? Colors.white : Color(0xFFFFD45F),
                           borderRadius: BorderRadius.circular(45),
-
                         ),
                         height: 60,
                         width: 130,
                       ),
                       onTap: (){
                         setState(() {
-                          isClickedAdd =! isClickedAdd;
+                          totalAmount(paymentAmount);
+                          print(discountedAmount);
                         });
                       },
                     ),
