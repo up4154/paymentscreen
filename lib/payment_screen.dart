@@ -16,23 +16,24 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen> {
   var size,height,width;
   double tipAmount =0.0;
-  double balanceAmount=10.0;
+  double balanceAmount=10.00;
   String toBePaid ='0';
   int _currentIndex = 0;
-  bool isClickedCash = true;
-  bool isClickedCard = true;
-  bool isClickedPayTm = true;
-  bool isClickedZomato = true;
-  bool isClickedUpi = true;
+  bool isClicked1 = true;
+  bool isClicked2 = true;
+  bool isClicked3 = true;
+  bool isClicked4 = true;
+  bool isClicked5 = true;
 
   final _tipController = new TextEditingController();
 
 
   bool isEnabled = false;
+  bool isEnabledBalance = false;
 
   String totalAmount(){
     tipAmount =double.parse(_tipController.text);
-    double totalAmount = ( widget.Ammount+ tipAmount -balanceAmount);
+    double totalAmount = ( widget.Ammount+ tipAmount - (isEnabledBalance ? balanceAmount: 0.0));
     setState(() {
       toBePaid = totalAmount.toStringAsFixed(2);
     });
@@ -315,7 +316,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),
                                   )),
                                   decoration: BoxDecoration(
-                                    color: isClickedCash ? Colors.white : Color(0xFFFFD45F),
+                                    color: isClicked1 ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(35),
                                     boxShadow: [
                                       BoxShadow(
@@ -339,7 +340,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                                 onTap: (){
                                   setState(() {
-                                    isClickedCash =! isClickedCash;
+                                    isClicked1 =! isClicked1;
+                                    isClicked2 = true;
+                                    isClicked3 = true;
+                                    isClicked4 = true;
+                                    isClicked5=true;
                                   });
                                 },
                               ),
@@ -357,7 +362,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                                   ),
                                   decoration: BoxDecoration(
-                                    color: isClickedCard ? Colors.white : Color(0xFFFFD45F),
+                                    color: isClicked2 ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(35),
                                     boxShadow: [
                                       BoxShadow(
@@ -381,7 +386,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                                 onTap: (){
                                   setState(() {
-                                    isClickedCard =! isClickedCard;
+                                    isClicked2 =! isClicked2;
+                                    isClicked1 = true;
+                                    isClicked3 = true;
+                                    isClicked4 = true;
+                                    isClicked5=true;
                                   });
                                 },
                               ),
@@ -396,7 +405,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       fontSize: 18
                                   ),)),
                                   decoration: BoxDecoration(
-                                    color: isClickedPayTm ? Colors.white : Color(0xFFFFD45F),
+                                    color: isClicked3 ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(35),
                                     boxShadow: [
                                       BoxShadow(
@@ -420,7 +429,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                                 onTap: (){
                                   setState(() {
-                                    isClickedPayTm =! isClickedPayTm;
+                                    isClicked3 =! isClicked3;
+                                    isClicked2 = true;
+                                    isClicked4 = true;
+                                    isClicked1 = true;
+                                    isClicked5=true;
                                   });
                                 },
                               ),
@@ -443,7 +456,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       fontSize: 18
                                   ),)),
                                   decoration: BoxDecoration(
-                                    color: isClickedZomato ? Colors.white : Color(0xFFFFD45F),
+                                    color: isClicked4 ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(35),
                                     boxShadow: [
                                       BoxShadow(
@@ -467,7 +480,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                                 onTap: (){
                                   setState(() {
-                                    isClickedZomato =! isClickedZomato;
+                                    isClicked4 =! isClicked4;
+                                    isClicked2 = true;
+                                    isClicked3= true;
+                                    isClicked1 = true;
+                                    isClicked5=true;
                                   });
                                 },
                               ),
@@ -482,7 +499,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       fontSize: 18
                                   ),)),
                                   decoration: BoxDecoration(
-                                    color: isClickedUpi ? Colors.white : Color(0xFFFFD45F),
+                                    color: isClicked5 ? Colors.white : Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(35),
                                     boxShadow: [
                                       BoxShadow(
@@ -506,7 +523,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                                 onTap: (){
                                   setState(() {
-                                    isClickedUpi =! isClickedUpi;
+                                    isClicked5 =! isClicked5;
+                                    isClicked2 = true;
+                                    isClicked3= true;
+                                    isClicked1 = true;
+                                    isClicked4=true;
                                   });
                                 },
                               ),
@@ -650,38 +671,91 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                               ),
                               Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20,right: 20),
-                                  child: Container(
-                                    height: 70,
-                                    child: TextFormField(
-                                      enableInteractiveSelection: false,
-                                      focusNode: new AlwaysDisabledFocusNode(),
-                                      keyboardType:TextInputType.number,
-                                      decoration: InputDecoration(
-                                        hintText: '\$$balanceAmount',
-                                        hintStyle: TextStyle(
-                                            fontWeight: FontWeight.bold
-                                        ),
-                                        prefix: Text('\$'),
-                                        helperText: 'Balance Amount',
-                                        helperStyle: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w500
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
-                                          borderSide: BorderSide(color:Colors.brown),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
-                                          borderSide: BorderSide(color:Colors.brown),
-                                        ),
+                                child: Column(
+                                  children: [
+                                    Container( //isEnabledBalance ? ()=> print('hello'): null,
+                                      child: InkWell(
+                                        onTap:(){
+                                          setState(() {
+                                            isEnabledBalance =!isEnabledBalance;
+                                          });
+                                        },
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(35),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey,
+                                                  offset: const Offset(
+                                                    1.0,
+                                                    1.0,
+                                                  ), //Offset
+                                                  blurRadius: 6.0,
+                                                  spreadRadius: 2.0,
+                                                ), //BoxShadow
+                                                BoxShadow(
+                                                  color: Colors.white,
+                                                  offset: const Offset(0.0, 0.0),
+                                                  blurRadius: 0.0,
+                                                  spreadRadius: 0.0,
+                                                ),],
+                                              color : isEnabledBalance ?  Color(0xFFFFD45F):Colors.grey,
+                                            ),
+                                            margin: EdgeInsets.only(top: 10),
+                                            width: 100,
+                                            height: 40,
+                                            child: Center(
+                                                child: Text(
+                                                  '\$$balanceAmount',
+                                                  textScaleFactor: 1.0,
+                                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                                ))),
+
                                       ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 2),
+                                      child: Text('Balance Amount',
+                                      style:TextStyle(
+                                             fontSize: 15,
+                                            fontWeight: FontWeight.w500 ),
+                                         ),
+                                    ),]
                                 ),
                               ),
+                              // Expanded(
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.only(left: 20,right: 20),
+                              //     child: Container(
+                              //       height: 70,
+                              //       child: TextFormField(
+                              //         enableInteractiveSelection: false,
+                              //         focusNode: new AlwaysDisabledFocusNode(),
+                              //         keyboardType:TextInputType.number,
+                              //         decoration: InputDecoration(
+                              //           hintText: '\$$balanceAmount',
+                              //           hintStyle: TextStyle(
+                              //               fontWeight: FontWeight.bold
+                              //           ),
+                              //           prefix: Text('\$'),
+                              //           helperText: 'Balance Amount',
+                              //           helperStyle: TextStyle(
+                              //               fontSize: 15,
+                              //               fontWeight: FontWeight.w500
+                              //           ),
+                              //           border: OutlineInputBorder(
+                              //             borderRadius: BorderRadius.circular(30),
+                              //             borderSide: BorderSide(color:Colors.brown),
+                              //           ),
+                              //           focusedBorder: OutlineInputBorder(
+                              //             borderRadius: BorderRadius.circular(30),
+                              //             borderSide: BorderSide(color:Colors.brown),
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
