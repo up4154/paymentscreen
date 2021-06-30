@@ -702,7 +702,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                               color : isEnabledBalance ?  Color(0xFFFFD45F):Colors.grey,
                                             ),
                                             margin: EdgeInsets.only(top: 10),
-                                            width: 100,
+                                            width: 160,
                                             height: 40,
                                             child: Center(
                                                 child: Text(
@@ -819,7 +819,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               blurRadius: 0.0,
                               spreadRadius: 0.0,
                             ),],
-                           color : isEnabled ?  Color(0xFFFFD45F):Colors.grey,
+                           color : isEnabled  ?  Color(0xFFFFD45F):Colors.grey,
                         ),
                         margin: EdgeInsets.only(top: 10),
                         width: 100,
