@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:paymentscreen/payment_screen.dart';
 
 class CartScreen extends StatefulWidget {
-
   @override
   _CartScreenState createState() => _CartScreenState();
 }

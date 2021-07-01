@@ -195,7 +195,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return SplitPay();
+                                        return SplitPay(Ammount: widget.Ammount,);
                                       }
                                   );
                                 },
@@ -701,7 +701,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                 ),],
                                               color : isEnabledBalance ?  Color(0xFFFFD45F):Colors.grey,
                                             ),
-                                            margin: EdgeInsets.only(top: 10),
                                             width: 160,
                                             height: 40,
                                             child: Center(
@@ -714,7 +713,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 2),
+                                      padding: const EdgeInsets.only(top: 10),
                                       child: Text('Balance Amount',
                                       style:TextStyle(
                                              fontSize: 15,

@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SplitPay extends StatefulWidget {
-  const SplitPay({Key? key}) : super(key: key);
+  double Ammount=0.0;
+  SplitPay({Key? key,required this.Ammount}) : super(key: key);
 
   @override
   _SplitPayState createState() => _SplitPayState();
@@ -394,8 +395,8 @@ class _SplitPayState extends State<SplitPay> {
                                 height: 60,
                                 child: Center(
                                     child: Text(
-                                      'Pay:\$32.44',
-                                      textScaleFactor: 3.5,
+                                      'Pay:\$'+widget.Ammount.toStringAsFixed(2),
+                                      textScaleFactor: 2.0,
                                       style: TextStyle(fontWeight: FontWeight.bold),
                                     ))),
                           ),
@@ -411,4 +412,3 @@ class _SplitPayState extends State<SplitPay> {
     );
   }
 }
-
