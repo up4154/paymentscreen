@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:paymentscreen/billing_type/billing_type.dart';
+import 'package:paymentscreen/billing_type/discount.dart';
 import 'package:paymentscreen/billing_type/redeem.dart';
 import 'package:paymentscreen/billing_type/shipping.dart';
 import 'package:paymentscreen/billing_type/split_payment.dart';
