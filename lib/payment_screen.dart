@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:paymentscreen/billing_type.dart';
 import 'package:paymentscreen/redeem.dart';
+import 'package:paymentscreen/shipping.dart';
 import 'package:paymentscreen/split_payment.dart';
 import 'package:paymentscreen/void.dart';
 import 'package:http/http.dart' as http;
@@ -253,14 +254,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return VoidBill(Ammount: widget.Ammount,);
+                                        return Shipping(Ammount: widget.Ammount,);
                                       }
                                   );
                                 },
                                 highlightedBorderColor: Colors.black87,
                                 textColor: Colors.black87,
                                 child: Icon(
-                                  Icons.highlight_off_outlined,
+                                  Icons.local_shipping,
                                   size: 24,
                                 ),
                                 padding: EdgeInsets.all(16),
@@ -268,7 +269,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 2),
-                                child: Text('Void',
+                                child: Text('Shipping',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold
                                   ),),
@@ -722,39 +723,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),]
                                 ),
                               ),
-                              // Expanded(
-                              //   child: Padding(
-                              //     padding: const EdgeInsets.only(left: 20,right: 20),
-                              //     child: Container(
-                              //       height: 70,
-                              //       child: TextFormField(
-                              //         enableInteractiveSelection: false,
-                              //         focusNode: new AlwaysDisabledFocusNode(),
-                              //         keyboardType:TextInputType.number,
-                              //         decoration: InputDecoration(
-                              //           hintText: '\$$balanceAmount',
-                              //           hintStyle: TextStyle(
-                              //               fontWeight: FontWeight.bold
-                              //           ),
-                              //           prefix: Text('\$'),
-                              //           helperText: 'Balance Amount',
-                              //           helperStyle: TextStyle(
-                              //               fontSize: 15,
-                              //               fontWeight: FontWeight.w500
-                              //           ),
-                              //           border: OutlineInputBorder(
-                              //             borderRadius: BorderRadius.circular(30),
-                              //             borderSide: BorderSide(color:Colors.brown),
-                              //           ),
-                              //           focusedBorder: OutlineInputBorder(
-                              //             borderRadius: BorderRadius.circular(30),
-                              //             borderSide: BorderSide(color:Colors.brown),
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),

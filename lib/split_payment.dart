@@ -14,15 +14,30 @@ class _SplitPayState extends State<SplitPay> {
 
   int items=2;
   String dropdownValue1 ='Cash';
-  String dropdownValue2 ='Card';
   bool isClickedAdd= true;
   bool isClickedCancel= true;
   bool addRow = false;
   bool isClickedRow = false;
-
+  List<String> split =[];
+  double sum =0.0;
+  double Sum =0.0;
+  String temp ='0';
+   double checkSum (){
+     Sum = double.parse(temp);
+     Sum+=sum;
+     return Sum;
+   }
+   bool isEnabled (){
+     if(checkSum()==widget.Ammount)
+       return true;
+     else
+       return false;
+   }
+   bool isActive = true;
 
   @override
   Widget build(BuildContext context) {
+     isActive=isEnabled();
     return Dialog(
         insetPadding: EdgeInsets.only(left: 20,right: 20,top: 140),
         backgroundColor: Colors.transparent,
@@ -37,7 +52,106 @@ class _SplitPayState extends State<SplitPay> {
                     itemCount:items ,
                     padding: const EdgeInsets.all(8),
                     itemBuilder: (BuildContext context, int index) {
-                      return Test(index: index);
+                      return  Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              Text('Payment Amount',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),),
+                              Padding(
+                                padding: const EdgeInsets.only(top:4,bottom: 20),
+                                child: Container(
+                                  height: 40,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: TextFormField(
+                                    onFieldSubmitted: (text) {
+                                      setState(() {
+                                        temp=text;
+                                      });
+                                    },
+                                    keyboardType:TextInputType.number,
+                                    decoration: InputDecoration(
+                                      prefix: Text('\$'),
+                                      helperStyle: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(color:Colors.brown),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(color:Colors.brown),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text('Payment Mode',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),),
+                              Padding(
+                                padding: const EdgeInsets.only(top:4,bottom: 20),
+                                child: Container(
+                                  height: 40,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0,bottom: 8.0,
+                                        left: 25),
+                                    child: DropdownButton<String>(
+                                      value: dropdownValue1,
+                                      items: [
+                                        DropdownMenuItem(
+                                          value: 'Cash',
+                                          child: Text('Cash'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: 'Card',
+                                          child: Text('Card'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: 'PayTM',
+                                          child: Text('PayTM'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: 'UPI',
+                                          child: Text('UPI'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: 'Other',
+                                          child: Text('Other'),
+                                        ),
+                                      ],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          dropdownValue1 = value!;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      );
                     },
                   ),
                 ),
@@ -61,13 +175,10 @@ class _SplitPayState extends State<SplitPay> {
                       items++;
                     });
                   }
-                // _addMulRow,
               ),
               Container(
-                child: GestureDetector(
-                  onTap: () {
-                    setState((){} );
-                  },
+                child: InkWell(
+                  onTap:isActive ? ()=> print('hello'): null,
                   child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(35),
@@ -87,19 +198,59 @@ class _SplitPayState extends State<SplitPay> {
                             blurRadius: 0.0,
                             spreadRadius: 0.0,
                           ),],
-                        color : const Color(0xFFFFD45F),
+                        color : isActive ?  Color(0xFFFFD45F):Colors.grey,
                       ),
                       margin: EdgeInsets.only(top: 10),
-                      width: 330,
-                      height: 60,
+                      width: 100,
+                      height: 45,
                       child: Center(
                           child: Text(
                             'Pay:\$'+widget.Ammount.toStringAsFixed(2),
-                            textScaleFactor: 2.0,
+                            textScaleFactor: 1.0,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ))),
+
                 ),
-              )
+              ),
+              // Container(
+              //   child: GestureDetector(
+              //     onTap: () {
+              //       setState((){
+              //         print('active');
+              //       } );
+              //     },
+              //     child: Container(
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(35),
+              //           boxShadow: [
+              //             BoxShadow(
+              //               color: Colors.grey,
+              //               offset: const Offset(
+              //                 1.0,
+              //                 1.0,
+              //               ), //Offset
+              //               blurRadius: 6.0,
+              //               spreadRadius: 2.0,
+              //             ), //BoxShadow
+              //             BoxShadow(
+              //               color: Colors.white,
+              //               offset: const Offset(0.0, 0.0),
+              //               blurRadius: 0.0,
+              //               spreadRadius: 0.0,
+              //             ),],
+              //           color : const Color(0xFFFFD45F),
+              //         ),
+              //         margin: EdgeInsets.only(top: 10),
+              //         width: 330,
+              //         height: 60,
+              //         child: Center(
+              //             child: Text(
+              //               'Pay:\$'+widget.Ammount.toStringAsFixed(2),
+              //               textScaleFactor: 2.0,
+              //               style: TextStyle(fontWeight: FontWeight.bold),
+              //             ))),
+              //   ),
+              // )
             ],
           ),
         )
@@ -107,128 +258,17 @@ class _SplitPayState extends State<SplitPay> {
     );
   }
 }
-class Test extends StatefulWidget {
-  int index ;
-  Test({Key? key,required this.index}) : super(key: key);
-
-  @override
-  _TestState createState() => _TestState();
-}
-
-class _TestState extends State<Test> {
-  String dropdownValue1 ='Cash';
-  List<String> split =[];
-
-  double sum =0.0;
-
-  // int index ;
-  // _TestState(this.index);
-
-  @override
-  Widget build(BuildContext context) {
-
-    return  Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Column(
-          children: [
-            Text('Payment Amount',
-              style: TextStyle(
-                  color: Colors.white
-              ),),
-            Padding(
-              padding: const EdgeInsets.only(top:4,bottom: 20),
-              child: Container(
-                height: 40,
-                width: 120,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: TextFormField(
-                  onFieldSubmitted: (text) {
-                    setState(() {
-                      sum+=double.parse(text);
-                      split.add(text);
-                    });
-                     print(split);
-                     print(sum);
-                    },
-                  keyboardType:TextInputType.number,
-                  decoration: InputDecoration(
-                    prefix: Text('\$'),
-                    helperStyle: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(color:Colors.brown),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(color:Colors.brown),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Text('Payment Mode',
-              style: TextStyle(
-                  color: Colors.white
-              ),),
-            Padding(
-              padding: const EdgeInsets.only(top:4,bottom: 20),
-              child: Container(
-                height: 40,
-                width: 120,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0,bottom: 8.0,
-                      left: 25),
-                  child: DropdownButton<String>(
-                    value: dropdownValue1,
-                    items: [
-                      DropdownMenuItem(
-                        value: 'Cash',
-                        child: Text('Cash'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Card',
-                        child: Text('Card'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'PayTM',
-                        child: Text('PayTM'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'UPI',
-                        child: Text('UPI'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Other',
-                        child: Text('Other'),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                        dropdownValue1 = value!;
-                      });
-                    },
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
-      ],
-    );
-  }
-}
+// class Test extends StatefulWidget {
+//   Test({Key? key}) : super(key: key);
+//
+//   @override
+//   _TestState createState() => _TestState();
+// }
+//
+// class _TestState extends State<Test> {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return
+//   }
+// }
