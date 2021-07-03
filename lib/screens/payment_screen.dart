@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:paymentscreen/billing_type.dart';
-import 'package:paymentscreen/redeem.dart';
-import 'package:paymentscreen/shipping.dart';
-import 'package:paymentscreen/split_payment.dart';
+import 'package:paymentscreen/billing_type/billing_type.dart';
+import 'package:paymentscreen/billing_type/redeem.dart';
+import 'package:paymentscreen/billing_type/shipping.dart';
+import 'package:paymentscreen/billing_type/split_payment.dart';
 import 'package:http/http.dart' as http;
 
 

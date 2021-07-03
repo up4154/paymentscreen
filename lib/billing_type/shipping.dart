@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:paymentscreen/payment_screen.dart';
+import 'package:paymentscreen/screens/payment_screen.dart';
 
 class Shipping extends StatefulWidget {
   double Ammount=0.0;
