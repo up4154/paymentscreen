@@ -75,7 +75,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         selectedItemColor: const Color(0xFFFFD45F),
-        unselectedItemColor: Colors.grey[800],
+        unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
         onTap: (value) {
           setState(() => _currentIndex = value);
