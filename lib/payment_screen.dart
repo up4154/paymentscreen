@@ -4,7 +4,6 @@ import 'package:paymentscreen/billing_type.dart';
 import 'package:paymentscreen/redeem.dart';
 import 'package:paymentscreen/shipping.dart';
 import 'package:paymentscreen/split_payment.dart';
-import 'package:paymentscreen/void.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -25,9 +24,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool isClicked3 = true;
   bool isClicked4 = true;
   bool isClicked5 = true;
-
+  bool value =false;
   final _tipController = new TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
 
   bool isEnabled = false;
   bool isEnabledBalance = false;
@@ -92,15 +91,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
           BottomNavigationBarItem(
             label: '',
-            icon: Icon(Icons.add_circle_outlined),
-          ),
-          BottomNavigationBarItem(
-            label: '',
-            icon: Icon(Icons.person),
-          ),
-          BottomNavigationBarItem(
-            label: '',
             icon: Icon(Icons.shopping_cart),
+          ),
+          BottomNavigationBarItem(
+            label: '',
+            icon: Icon(Icons.open_in_browser_sharp),
           ),
         ],
       ),
@@ -147,8 +142,21 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             });
                           },
                         ),
-                        Text("TABLE -11",
-                          style: TextStyle(fontSize: 23,fontWeight: FontWeight.w500),),
+                        Padding(
+                          padding: const EdgeInsets.only(top:8),
+                          child: Text("TABLE -11",
+                            style: TextStyle(fontSize: 23,fontWeight: FontWeight.w500),),
+                        ),
+                        IconButton(
+                          alignment:Alignment.topRight,
+                          icon: const Icon(Icons.notifications,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                            });
+                          },
+                        ),
                         CircleAvatar(
                             backgroundImage: NetworkImage('https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')
                         ),
@@ -611,23 +619,32 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   padding: const EdgeInsets.only(left: 20,right: 20),
                                   child: Container(
                                     height: 70,
-                                    child: TextFormField(
-                                      controller: _tipController,
-                                      keyboardType:TextInputType.number,
-                                      decoration: InputDecoration(
-                                        prefix: Text('\$'),
-                                        helperText: 'Tip Amount',
-                                        helperStyle: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w500
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
-                                          borderSide: BorderSide(color:Colors.brown),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
-                                          borderSide: BorderSide(color:Colors.brown),
+                                    child: Form(
+                                      key: _formKey,
+                                      child: TextFormField(
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter tip amount';
+                                          }
+                                          return null;
+                                        },
+                                        controller: _tipController,
+                                        keyboardType:TextInputType.number,
+                                        decoration: InputDecoration(
+                                          prefix: Text('\$'),
+                                          helperText: 'Tip Amount',
+                                          helperStyle: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w500
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(30),
+                                            borderSide: BorderSide(color:Colors.brown),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(30),
+                                            borderSide: BorderSide(color:Colors.brown),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -674,7 +691,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Container( //isEnabledBalance ? ()=> print('hello'): null,
+                                    Container(
                                       child: InkWell(
                                         onTap:(){
                                           setState(() {
@@ -740,29 +757,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 color: Colors.grey[300],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                OutlinedButton.icon(
-                  onPressed:(){
-                    setState(() {
-                      totalAmount();
-                      isEnabled=true;
-                    });
-                  },
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))
-                      ),
-                      side: MaterialStateProperty.all(BorderSide(width: 2))
-                  ),
+            Column(
 
-                  label: Text("Confirm",style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 20
-                  ),),
-                  icon: Icon(Icons.check,
-                    color: Colors.black87,),
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Checkbox(
+                      value: this.isEnabled,
+                      activeColor: Color(0xFFFFD45F),
+                      onChanged: (value) {
+                        setState(() {
+                          if(_formKey.currentState!.validate())
+                          {totalAmount();
+                            this.isEnabled = value!;}
+                        });
+                      },
+                    ),
+                    Text(
+                      'Continue',
+                    )
+                  ],
                 ),
                 Container(
                   child: InkWell(
@@ -786,10 +801,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               blurRadius: 0.0,
                               spreadRadius: 0.0,
                             ),],
-                           color : isEnabled  ?  Color(0xFFFFD45F):Colors.grey,
+                          color : isEnabled  ?  Color(0xFFFFD45F):Colors.grey,
                         ),
                         margin: EdgeInsets.only(top: 10),
-                        width: 100,
+                        width: 200,
                         height: 45,
                         child: Center(
                             child: Text(
@@ -799,9 +814,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             ))),
 
                   ),
-                ),
+                )
               ],
-            )
+            ),
           ],
         ),
       ),
