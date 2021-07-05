@@ -900,7 +900,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               );
                             });
                           },
-                          iconSize: 50,
+                          iconSize: 40,
                           icon: Icon(Icons.keyboard_arrow_down_outlined,
                             color: Colors.grey[800],
                           ),
