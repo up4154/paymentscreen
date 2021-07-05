@@ -5,6 +5,7 @@ import 'package:paymentscreen/billing_type/redeem.dart';
 import 'package:paymentscreen/billing_type/shipping.dart';
 import 'package:paymentscreen/billing_type/split_payment.dart';
 import 'package:http/http.dart' as http;
+import 'package:paymentscreen/void.dart';
 
 
 class PaymentScreen extends StatefulWidget {
@@ -25,12 +26,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool isClicked4 = true;
   bool isClicked5 = true;
   bool value =false;
-  final _tipController = new TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-
   bool isEnabled = false;
   bool isEnabledBalance = false;
 
+  final _tipController = new TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  setBottomBarIndex(index){
+    setState(() {
+      _currentIndex = index;
+    });
+  }
   String totalAmount(){
     tipAmount =double.parse(_tipController.text);
     double totalAmount = ( widget.Ammount+ tipAmount - (isEnabledBalance ? balanceAmount: 0.0));
@@ -71,35 +78,57 @@ class _PaymentScreenState extends State<PaymentScreen> {
     height = size.height;
     width = size.width;
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFFFFD45F),
-        unselectedItemColor: Colors.grey,
-        currentIndex: _currentIndex,
-        onTap: (value) {
-          setState(() => _currentIndex = value);
-        },
-        items: [
-          BottomNavigationBarItem(
-            label: '',
-            icon: Icon(Icons.home_sharp),
-          ),
-          BottomNavigationBarItem(
-            label: '',
-            icon: Icon(Icons.border_all_rounded),
-          ),
-          BottomNavigationBarItem(
-            label: '',
-            icon: Icon(Icons.shopping_cart),
-          ),
-          BottomNavigationBarItem(
-            label: '',
-            icon: Icon(Icons.open_in_browser_sharp),
-          ),
-        ],
-      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          height: 50,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
 
+              // button 1
+              IconButton(
+                icon: Icon(Icons.home_sharp,
+                  color: _currentIndex == 0 ? Color(0xFFFFD45F) : Colors.grey[800],
+                ),
+                onPressed: (){
+                  setBottomBarIndex(0);
+                },
+                splashColor: Colors.white,
+              ),
+
+              // button 2
+              IconButton(
+                  icon: Icon(Icons.border_all_rounded,
+                    color: _currentIndex == 1 ? Color(0xFFFFD45F) : Colors.grey[800],
+                  ),
+                  onPressed: (){
+                    setBottomBarIndex(1);
+                  }),
+
+              // button 3
+              IconButton(
+                  icon: Icon(Icons.shopping_cart,
+                    color: _currentIndex == 2 ? Color(0xFFFFD45F) : Colors.grey[800],
+                  ),
+                  onPressed: (){
+                    setBottomBarIndex(2);
+                  }),
+
+              // button 4
+              IconButton(
+                  icon: Icon(Icons.open_in_browser_sharp,
+                    color: _currentIndex == 3 ? Color(0xFFFFD45F) : Colors.grey[800],
+                  ),
+                  onPressed: (){
+                    setBottomBarIndex(3);
+                  }),
+            ],
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -757,8 +786,133 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 color: Colors.grey[300],
               ),
             ),
-            Column(
+            _currentIndex == 3 ?  Padding(
+              padding: const EdgeInsets.only(top: 40.0),
+              child: new Container(
+                height: 70,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: const Offset(
+                        1.0,
+                        1.0,
+                      ), //Offset
+                      blurRadius: 6.0,
+                      spreadRadius: 2.0,
+                    ), //BoxShadow
+                    BoxShadow(
+                      color: Colors.white,
+                      offset: const Offset(0.0, 0.0),
+                      blurRadius: 0.0,
+                      spreadRadius: 0.0,
+                    ),],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed:(){
+                            setState(() {
+                            });
+                          },
+                          iconSize: 25,
+                          icon: Icon(Icons.table_chart_outlined,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                        Text('Tables',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800],
+                          ),)
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed:(){
+                            setState(() {
+                            });
+                          },
+                          iconSize: 29,
+                          icon: Icon(Icons.play_arrow_sharp,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                        Text('Resume',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800],
+                          ),
+                        )
+                      ],
+                    ),Column(
+                      children: [
+                        IconButton(
+                          onPressed:(){
+                              showDialog(
+                                  context: context,
+                                  builder: (context){
+                                    return VoidBill(Ammount: widget.Ammount);
+                                  }
+                              );
+                          },
+                          iconSize: 25,
+                          icon: Icon(Icons.delete,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                        Text('Void',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800],
+                          ),)
+                      ],
+                    ),Column(
+                      children: [
+                        IconButton(
+                          onPressed:(){
+                            setState(() {
+                            });
+                          },
+                          iconSize: 25,
+                          icon: Icon(Icons.clear_all_sharp,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                        Text('Clear',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800],
+                          ),)
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed:(){
+                            setState(() {
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount,)),
+                              );
+                            });
+                          },
+                          iconSize: 50,
+                          icon: Icon(Icons.keyboard_arrow_down_outlined,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                      ],
+                    ),
 
+                  ],
+                ),
+              ),
+
+            ):Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

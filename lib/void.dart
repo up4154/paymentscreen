@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:paymentscreen/screens/payment_screen.dart';
 
 class VoidBill extends StatefulWidget {
   double Ammount=0.0;
@@ -97,9 +96,8 @@ class _VoidBillState extends State<VoidBill> {
                                   width: 130,
                                 ),
                                 onTap :(){
-                                  Navigator.push(
+                                  Navigator.pop(
                                     context,
-                                    MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount,)),
                                   );
                                 },
                               ),
