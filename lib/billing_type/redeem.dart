@@ -13,8 +13,22 @@ class RedeemPoint extends StatefulWidget {
 class _RedeemPointState extends State<RedeemPoint> {
   bool isClickedAdd = true;
   bool isClickedCancel = true;
+  int points=250;
+  double redeemAmount =0.0;
+  String redeemedAmount ='0';
 
+  final pointscontroller= new TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
+  String totalAmounttype(){
+    redeemAmount =double.parse(pointscontroller.text);
+    double totalAmount = (widget.Balance - redeemAmount);
+    setState(() {
+      redeemedAmount =totalAmount.toStringAsFixed(2);
+    });
+    return redeemedAmount;
+  }
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -33,7 +47,7 @@ class _RedeemPointState extends State<RedeemPoint> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('250 POINTS',
+                        Text('$points POINTS',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 35,
@@ -58,21 +72,31 @@ class _RedeemPointState extends State<RedeemPoint> {
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(
-                              color: Colors.white,
                               borderRadius: BorderRadius.circular(30),
+                              color: Colors.white,
                             ),
-                            child: TextFormField(
-                              keyboardType:TextInputType.number,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color:Colors.brown),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color:Colors.brown),
-                                  ),
-                                  hintText: 'How many Points to Redeem'
+                            child: Form(
+                              key: _formKey,
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter points to be redeemed';
+                                  }
+                                  return null;
+                                },
+                                controller: pointscontroller,
+                                keyboardType:TextInputType.number,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide(color:Colors.brown),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide(color:Colors.brown),
+                                    ),
+                                    hintText: 'How many Points to Redeem'
+                                ),
                               ),
                             ),
                           ),
@@ -94,7 +118,6 @@ class _RedeemPointState extends State<RedeemPoint> {
                         Padding(
                           padding: const EdgeInsets.only(top: 15,left: 30,right: 20),
                           child: Container(
-                            height: 50,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(30),
@@ -128,10 +151,9 @@ class _RedeemPointState extends State<RedeemPoint> {
                                         fontSize: 30
                                     ),
                                   ),
-
                                   ),
                                   decoration: BoxDecoration(
-                                    color: isClickedAdd ? Colors.white : Color(0xFFFFD45F),
+                                    color:  Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(45),
 
                                   ),
@@ -140,7 +162,12 @@ class _RedeemPointState extends State<RedeemPoint> {
                                 ),
                                 onTap: (){
                                   setState(() {
-                                    isClickedAdd =! isClickedAdd;
+                                    if(_formKey.currentState!.validate()){
+                                    totalAmounttype();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => PaymentScreen(Ammount:widget.Ammount , Balance:double.parse(redeemedAmount) ,)),
+                                    );}
                                   });
                                 },
                               ),
@@ -153,7 +180,7 @@ class _RedeemPointState extends State<RedeemPoint> {
 
                                   ),
                                   decoration: BoxDecoration(
-                                    color: isClickedCancel ? Colors.white : Color(0xFFFFD45F),
+                                    color: Color(0xFFFFD45F),
                                     borderRadius: BorderRadius.circular(45),
                                   ),
                                   height: 60,
