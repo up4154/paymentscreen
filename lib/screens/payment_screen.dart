@@ -10,14 +10,17 @@ import 'package:paymentscreen/void.dart';
 
 class PaymentScreen extends StatefulWidget {
   double Ammount=0.0;
-  PaymentScreen({ Key? key, required this.Ammount}) : super(key: key);
+  double Balance=0.0;
+  PaymentScreen({ Key? key, required this.Ammount,required this.Balance}) : super(key: key);
+
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
 class _PaymentScreenState extends State<PaymentScreen> {
+  static double paymentAmount =0;
   var size,height,width;
   double tipAmount =0.0;
-  double balanceAmount=10.00;
+  // double balanceAmount=0.00;
   String toBePaid ='0';
   int _currentIndex = 0;
   bool isClicked1 = true;
@@ -40,11 +43,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
   String totalAmount(){
     tipAmount =double.parse(_tipController.text);
-    double totalAmount = ( widget.Ammount+ tipAmount - (isEnabledBalance ? balanceAmount: 0.0));
+
     setState(() {
-      toBePaid = totalAmount.toStringAsFixed(2);
+      isEnabled ?
+      widget.Balance = ( widget.Balance+ tipAmount)
+      :widget.Balance = ( widget.Balance-tipAmount);
     });
-    return toBePaid;
+    return widget.Balance.toStringAsFixed(2);
   }
 
   List<String> _payMeth =["","","","","",];
@@ -77,6 +82,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
+    paymentAmount=widget.Ammount;
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
@@ -203,7 +209,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return Discount(Ammount: widget.Ammount,);
+                                        return Discount(Ammount: widget.Ammount, Balance: widget.Balance,);
                                       }
                                   );
                                 },
@@ -262,7 +268,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return RedeemPoint(Ammount: widget.Ammount,);
+                                        return RedeemPoint(Ammount: widget.Ammount, Balance: widget.Ammount,);
                                       }
                                   );
                                 },
@@ -291,7 +297,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return Shipping(Ammount: widget.Ammount,);
+                                        return Shipping(Ammount: widget.Ammount, Balance: widget.Balance,);
                                       }
                                   );
                                 },
@@ -621,7 +627,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       focusNode: new AlwaysDisabledFocusNode(),
                                       keyboardType:TextInputType.number,
                                       decoration: InputDecoration(
-                                        hintText: '\$'+widget.Ammount.toStringAsFixed(2),
+                                        hintText: '\$'+paymentAmount.toStringAsFixed(2),
                                         hintStyle: TextStyle(
                                           fontWeight: FontWeight.bold
                                         ),
@@ -651,6 +657,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     child: Form(
                                       key: _formKey,
                                       child: TextFormField(
+                                        readOnly: isEnabled,
                                         validator: (value) {
                                           if (value == null || value.isEmpty) {
                                             return 'Please enter tip amount';
@@ -746,13 +753,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                   blurRadius: 0.0,
                                                   spreadRadius: 0.0,
                                                 ),],
-                                              color : isEnabledBalance ?  Color(0xFFFFD45F):Colors.grey,
+                                              color : isEnabledBalance ?  Color(0xFFFFD45F):Color(0xFFFFD45F),
                                             ),
                                             width: 160,
                                             height: 40,
                                             child: Center(
                                                 child: Text(
-                                                  '\$$balanceAmount',
+                                                  '\$'+widget.Balance.toStringAsFixed(2),
                                                   textScaleFactor: 1.0,
                                                   style: TextStyle(fontWeight: FontWeight.bold),
                                                 ))),
@@ -786,132 +793,128 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 color: Colors.grey[300],
               ),
             ),
-            _currentIndex == 3 ?  Padding(
-              padding: const EdgeInsets.only(top: 40.0),
-              child: new Container(
-                height: 70,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: const Offset(
-                        1.0,
-                        1.0,
-                      ), //Offset
-                      blurRadius: 6.0,
-                      spreadRadius: 2.0,
-                    ), //BoxShadow
-                    BoxShadow(
-                      color: Colors.white,
-                      offset: const Offset(0.0, 0.0),
-                      blurRadius: 0.0,
-                      spreadRadius: 0.0,
-                    ),],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        IconButton(
-                          onPressed:(){
-                            setState(() {
-                            });
-                          },
-                          iconSize: 25,
-                          icon: Icon(Icons.table_chart_outlined,
-                            color: Colors.grey[800],
-                          ),
-                        ),
-                        Text('Tables',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[800],
-                          ),)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        IconButton(
-                          onPressed:(){
-                            setState(() {
-                            });
-                          },
-                          iconSize: 29,
-                          icon: Icon(Icons.play_arrow_sharp,
-                            color: Colors.grey[800],
-                          ),
-                        ),
-                        Text('Resume',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[800],
-                          ),
-                        )
-                      ],
-                    ),Column(
-                      children: [
-                        IconButton(
-                          onPressed:(){
-                              showDialog(
-                                  context: context,
-                                  builder: (context){
-                                    return VoidBill(Ammount: widget.Ammount);
-                                  }
-                              );
-                          },
-                          iconSize: 25,
-                          icon: Icon(Icons.delete,
-                            color: Colors.grey[800],
-                          ),
-                        ),
-                        Text('Void',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[800],
-                          ),)
-                      ],
-                    ),Column(
-                      children: [
-                        IconButton(
-                          onPressed:(){
-                            setState(() {
-                            });
-                          },
-                          iconSize: 25,
-                          icon: Icon(Icons.clear_all_sharp,
-                            color: Colors.grey[800],
-                          ),
-                        ),
-                        Text('Clear',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[800],
-                          ),)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        IconButton(
-                          onPressed:(){
-                            setState(() {
-                              Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount,)),
-                              );
-                            });
-                          },
-                          iconSize: 40,
-                          icon: Icon(Icons.keyboard_arrow_down_outlined,
-                            color: Colors.grey[800],
-                          ),
-                        ),
-                      ],
-                    ),
-
-                  ],
-                ),
+            _currentIndex == 3 ?  new Container(
+              height: 70,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: const Offset(
+                      1.0,
+                      1.0,
+                    ), //Offset
+                    blurRadius: 6.0,
+                    spreadRadius: 2.0,
+                  ), //BoxShadow
+                  BoxShadow(
+                    color: Colors.white,
+                    offset: const Offset(0.0, 0.0),
+                    blurRadius: 0.0,
+                    spreadRadius: 0.0,
+                  ),],
               ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      IconButton(
+                        onPressed:(){
+                          setState(() {
+                          });
+                        },
+                        iconSize: 25,
+                        icon: Icon(Icons.table_chart_outlined,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                      Text('Tables',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                        ),)
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      IconButton(
+                        onPressed:(){
+                          setState(() {
+                          });
+                        },
+                        iconSize: 29,
+                        icon: Icon(Icons.play_arrow_sharp,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                      Text('Resume',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                        ),
+                      )
+                    ],
+                  ),Column(
+                    children: [
+                      IconButton(
+                        onPressed:(){
+                            showDialog(
+                                context: context,
+                                builder: (context){
+                                  return VoidBill(Ammount: widget.Ammount);
+                                }
+                            );
+                        },
+                        iconSize: 25,
+                        icon: Icon(Icons.delete,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                      Text('Void',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                        ),)
+                    ],
+                  ),Column(
+                    children: [
+                      IconButton(
+                        onPressed:(){
+                          setState(() {
+                          });
+                        },
+                        iconSize: 25,
+                        icon: Icon(Icons.clear_all_sharp,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                      Text('Clear',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                        ),)
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      IconButton(
+                        onPressed:(){
+                          setState(() {
+                            Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance,)),
+                            );
+                          });
+                        },
+                        iconSize: 40,
+                        icon: Icon(Icons.keyboard_arrow_down_outlined,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                    ],
+                  ),
 
+                ],
+              ),
             ):Column(
               children: [
                 Row(
@@ -923,8 +926,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       onChanged: (value) {
                         setState(() {
                           if(_formKey.currentState!.validate())
-                          {totalAmount();
-                            this.isEnabled = value!;}
+                          {
+                            this.isEnabled = value!;
+                            totalAmount();
+                          }
                         });
                       },
                     ),
@@ -962,7 +967,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         height: 45,
                         child: Center(
                             child: Text(
-                              'Pay:\$$toBePaid',
+                              'Pay:'+widget.Balance.toStringAsFixed(2),
                               textScaleFactor: 1.0,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ))),

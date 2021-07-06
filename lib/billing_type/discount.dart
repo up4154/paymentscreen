@@ -4,7 +4,8 @@ import 'package:paymentscreen/screens/payment_screen.dart';
 
 class Discount extends StatefulWidget {
   double Ammount=0.0;
-  Discount({ Key? key, required this.Ammount}) : super(key: key);
+  double Balance=0.0;
+  Discount({ Key? key, required this.Ammount,required this.Balance}) : super(key: key);
 
   @override
   _DiscountState createState() => _DiscountState();
@@ -28,13 +29,13 @@ class _DiscountState extends State<Discount> {
   String totalAmounttype(){
     discountAmount =double.parse(_amountController.text);
     if(dropdownValue=='Percentage %'){
-      double totalAmount = (widget.Ammount - (widget.Ammount*discountAmount/100));
+      double totalAmount = (widget.Balance - (widget.Balance*discountAmount/100));
       setState(() {
         discountedAmount = totalAmount.toStringAsFixed(2);
       });}
     else{
       {
-        double totalAmount = (widget.Ammount - discountAmount);
+        double totalAmount = (widget.Balance - discountAmount);
         setState(() {
           discountedAmount = totalAmount.toStringAsFixed(2);
         });}
@@ -280,7 +281,7 @@ class _DiscountState extends State<Discount> {
                             totalAmounttype();
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: double.parse(discountedAmount),)),
+                              MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: double.parse(discountedAmount))),
                             );
                           });
                         },
@@ -303,7 +304,7 @@ class _DiscountState extends State<Discount> {
                         onTap :(){
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount,)),
+                            MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance)),
                           );
                         },
                       ),

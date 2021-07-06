@@ -111,6 +111,6 @@ class _VoidBillState extends State<VoidBill> {
             ),
           ),
         )
-    );;
+    );
   }
 }

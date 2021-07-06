@@ -3,7 +3,8 @@ import 'package:paymentscreen/screens/payment_screen.dart';
 
 class RedeemPoint extends StatefulWidget {
   double Ammount=0.0;
-  RedeemPoint({Key? key,required this.Ammount}) : super(key: key);
+  double Balance=0.0;
+  RedeemPoint({Key? key,required this.Ammount,required this.Balance}) : super(key: key);
 
   @override
   _RedeemPointState createState() => _RedeemPointState();
@@ -161,7 +162,7 @@ class _RedeemPointState extends State<RedeemPoint> {
                                 onTap :(){
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount,)),
+                                    MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance,)),
                                   );
                                 },
                               ),

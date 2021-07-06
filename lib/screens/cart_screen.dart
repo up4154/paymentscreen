@@ -330,7 +330,7 @@ class _CartScreenState extends State<CartScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: paymentAmount)),
+                  MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: paymentAmount, Balance: paymentAmount,)),
                 );
               },
               style: ButtonStyle(

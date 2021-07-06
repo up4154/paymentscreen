@@ -4,7 +4,8 @@ import 'package:paymentscreen/screens/payment_screen.dart';
 
 class Shipping extends StatefulWidget {
   double Ammount=0.0;
-  Shipping({Key? key, required this.Ammount}) : super(key: key);
+  double Balance=0.0;
+  Shipping({Key? key, required this.Ammount,required this.Balance}) : super(key: key);
 
   @override
   _ShippingState createState() => _ShippingState();
@@ -22,7 +23,7 @@ class _ShippingState extends State<Shipping> {
   String totalAmounttype(){
     shipAmount =double.parse(_shipChargeController.text);
     packageAmount =double.parse(_packageChargeController.text);
-    double totalAmount = (widget.Ammount + shipAmount+packageAmount);
+    double totalAmount = (widget.Balance + shipAmount+packageAmount);
     setState(() {
       shippingCharge =totalAmount.toStringAsFixed(2);
     });
@@ -217,7 +218,7 @@ class _ShippingState extends State<Shipping> {
                                     totalAmounttype();
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: double.parse(shippingCharge),)),
+                                      MaterialPageRoute(builder: (context) => PaymentScreen(Ammount:widget.Ammount , Balance:double.parse(shippingCharge) ,)),
                                     );
                                   });
                                 },
@@ -240,7 +241,7 @@ class _ShippingState extends State<Shipping> {
                                 onTap :(){
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount,)),
+                                    MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance,)),
                                   );
                                 },
                               ),
