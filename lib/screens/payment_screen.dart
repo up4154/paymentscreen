@@ -593,7 +593,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ),
             Container(
-              height: 190 ,
+              height: 210 ,
               width: width,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
@@ -620,70 +620,86 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 20,right: 20),
-                                  child: Container(
-                                    height: 70,
-                                    child: TextField(
-                                      enableInteractiveSelection: false,
-                                      focusNode: new AlwaysDisabledFocusNode(),
-                                      keyboardType:TextInputType.number,
-                                      decoration: InputDecoration(
-                                        hintText: '\$'+paymentAmount.toStringAsFixed(2),
-                                        hintStyle: TextStyle(
-                                          fontWeight: FontWeight.bold
-                                        ),
-                                        helperText: 'Payment Amount',
-                                        helperStyle: TextStyle(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 8,left: 8),
+                                        child: Text('Payment Amount',
+                                          style:TextStyle(
                                             fontSize: 15,
-                                            fontWeight: FontWeight.w500
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
-                                          borderSide: BorderSide(color:Colors.brown),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
-                                          borderSide: BorderSide(color:Colors.brown),
+                                            fontWeight: FontWeight.w400
+                                          ) ,),
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        child: TextField(
+                                          enableInteractiveSelection: false,
+                                          focusNode: new AlwaysDisabledFocusNode(),
+                                          keyboardType:TextInputType.number,
+                                          decoration: InputDecoration(
+                                            hintText: '\$'+paymentAmount.toStringAsFixed(2),
+                                            hintStyle: TextStyle(
+                                              fontWeight: FontWeight.bold
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(30),
+                                              borderSide: BorderSide(color:Colors.brown),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(30),
+                                              borderSide: BorderSide(color:Colors.brown),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ),
                               ),
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 20,right: 20),
-                                  child: Container(
-                                    height: 70,
-                                    child: Form(
-                                      key: _formKey,
-                                      child: TextFormField(
-                                        readOnly: isEnabled,
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter tip amount';
-                                          }
-                                          return null;
-                                        },
-                                        controller: _tipController,
-                                        keyboardType:TextInputType.number,
-                                        decoration: InputDecoration(
-                                          prefix: Text('\$'),
-                                          helperText: 'Tip Amount',
-                                          helperStyle: TextStyle(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 8,left: 8),
+                                        child: Text('Tip Amount',
+                                          style:TextStyle(
                                               fontSize: 15,
-                                              fontWeight: FontWeight.w500
-                                          ),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(30),
-                                            borderSide: BorderSide(color:Colors.brown),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(30),
-                                            borderSide: BorderSide(color:Colors.brown),
+                                              fontWeight: FontWeight.w400
+                                          ) ,),
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        child: Form(
+                                          key: _formKey,
+                                          child: TextFormField(
+                                            readOnly: isEnabled,
+                                            validator: (value) {
+                                              if (value == null || value.isEmpty) {
+                                                return 'Please enter tip amount';
+                                              }
+                                              return null;
+                                            },
+                                            controller: _tipController,
+                                            keyboardType:TextInputType.number,
+                                            decoration: InputDecoration(
+                                              prefix: Text('\$'),
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(30),
+                                                borderSide: BorderSide(color:Colors.brown),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(30),
+                                                borderSide: BorderSide(color:Colors.brown),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -697,43 +713,54 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 20,right: 20),
-                                  child: Container(
-                                    height: 70,
-                                    child: TextFormField(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 8,left: 8),
+                                        child: Text('Card Number',
+                                          style:TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w400
+                                          ) ,),
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        child: TextFormField(
 
-                                      keyboardType:TextInputType.number,
-                                      obscureText: true,
-                                      decoration: InputDecoration(
+                                          keyboardType:TextInputType.number,
+                                          obscureText: true,
+                                          decoration: InputDecoration(
 
-                                        helperText: 'Card Number',
-                                        helperStyle: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w500
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
-                                          borderSide: BorderSide(color:Colors.brown),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
-                                          borderSide: BorderSide(color:Colors.brown),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(30),
+                                              borderSide: BorderSide(color:Colors.brown),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(30),
+                                              borderSide: BorderSide(color:Colors.brown),
+                                            ),
+                                          ),
+
                                         ),
                                       ),
-
-                                    ),
+                                    ],
                                   ),
                                 ),
                               ),
                               Expanded(
                                 child: Column(
                                   children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 8,),
+                                      child: Text('Balance Amount',
+                                        style:TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
+
+                                        ) ,),
+                                    ),
                                     Container(
-                                      child: InkWell(
-                                        onTap:(){
-                                          setState(() {
-                                            isEnabledBalance =!isEnabledBalance;
-                                          });
-                                        },
                                         child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(35),
@@ -753,10 +780,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                   blurRadius: 0.0,
                                                   spreadRadius: 0.0,
                                                 ),],
-                                              color : isEnabledBalance ?  Color(0xFFFFD45F):Color(0xFFFFD45F),
+                                              color :Color(0xFFFFD45F),
                                             ),
                                             width: 160,
-                                            height: 40,
+                                            height: 50,
                                             child: Center(
                                                 child: Text(
                                                   '\$'+widget.Balance.toStringAsFixed(2),
@@ -765,15 +792,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                 ))),
 
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Text('Balance Amount',
-                                      style:TextStyle(
-                                             fontSize: 15,
-                                            fontWeight: FontWeight.w500 ),
-                                         ),
-                                    ),]
+                                  ]
                                 ),
                               ),
                             ],
