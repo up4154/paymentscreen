@@ -82,6 +82,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     if(isClicked1 ==false){
       return Container(
         height: 320 ,
+        color:Colors.white,
         width: width,
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
@@ -167,8 +168,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 Container(
                                   child: Container(
                                       decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Colors.grey,
+                                        ),
                                         borderRadius: BorderRadius.circular(35),
-                                        color :Color(0xFFFFD45F),
+                                        color :Colors.white,
                                       ),
                                       width: 160,
                                       height: 50,
@@ -197,8 +201,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 Container(
                                   child: Container(
                                       decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Colors.grey,
+                                        ),
                                         borderRadius: BorderRadius.circular(35),
-                                        color :Color(0xFFFFD45F),
+                                        color :Colors.white,
                                       ),
                                       width: 160,
                                       height: 50,
@@ -207,13 +214,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             widget.Redeem.toString(),
                                             textScaleFactor: 1.25,
                                             style: TextStyle(fontWeight: FontWeight.bold),
-                                          ))),
-
+                                          )
+                                      )
+                                  ),
                                 ),
                               ]
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -331,6 +338,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     else if(isClicked2==false){
       return  Container(
         height: 320 ,
+          color:Colors.white,
         width: width,
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
@@ -467,8 +475,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   Container(
                                     child: Container(
                                         decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.grey,
+                                          ),
                                           borderRadius: BorderRadius.circular(35),
-                                          color :Color(0xFFFFD45F),
+                                          color :Colors.white,
                                         ),
                                         width: 160,
                                         height: 50,
@@ -497,8 +508,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   Container(
                                     child: Container(
                                         decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.grey,
+                                          ),
                                           borderRadius: BorderRadius.circular(35),
-                                          color :Color(0xFFFFD45F),
+                                          color :Colors.white,
                                         ),
                                         width: 160,
                                         height: 50,
@@ -771,7 +785,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             showDialog(
                                 context: context,
                                 builder: (context){
-                                  return Shipping(Ammount: widget.Ammount, Balance: widget.Balance, 
+                                  return Shipping(Ammount: widget.Ammount, Balance: widget.Balance,
                                     Discountt: widget.Discountt, Redeem: widget.Redeem,);
                                 }
                             );
@@ -917,6 +931,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Container(
               height: 170 ,
               width: width,
+              color:Colors.white,
               child: Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: Column(
@@ -1174,6 +1189,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
             Container(
               padding: EdgeInsets.only(left: 30,right: 30),
+              color:Colors.white,
               child: Divider(
                 height: 0,
                 thickness: 3,
@@ -1182,6 +1198,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
             selectPaymentMode(),
             Container(
+              color:Colors.white,
               padding: EdgeInsets.only(left: 30,right: 30),
               child: Divider(
                 height: 0,
@@ -1434,7 +1451,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       textScaleFactor: 1.5,
                                       style: TextStyle(fontWeight: FontWeight.bold),
                                     ),
-
                                   ],
                                 ) )),
 
