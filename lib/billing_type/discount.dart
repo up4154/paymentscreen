@@ -5,7 +5,14 @@ import 'package:paymentscreen/screens/payment_screen.dart';
 class Discount extends StatefulWidget {
   double Ammount=0.0;
   double Balance=0.0;
-  Discount({ Key? key, required this.Ammount,required this.Balance}) : super(key: key);
+  double Discountt =0.0;
+  int Redeem =0;
+  Discount({ Key? key,
+    required this.Ammount,
+    required this.Balance,
+    required this.Discountt,
+    required this.Redeem
+  }) : super(key: key);
 
   @override
   _DiscountState createState() => _DiscountState();
@@ -13,6 +20,7 @@ class Discount extends StatefulWidget {
 
 class _DiscountState extends State<Discount> {
   double discountAmount =0.0;
+  double discountted =0.0;
   bool isClickedDiscount= true;
   bool isClickedDiscountCash= true;
   bool isClicked1= true;
@@ -23,7 +31,7 @@ class _DiscountState extends State<Discount> {
   bool isClickedCancel= true;
   String  discountedAmount ='0';
   var num_list = ['5','10','15','20'];
-
+  final _formKey = GlobalKey<FormState>();
   String dropdownValue ='Percentage %';
   final _amountController = new TextEditingController();
   String totalAmounttype(){
@@ -41,6 +49,23 @@ class _DiscountState extends State<Discount> {
         });}
     }
     return discountedAmount;
+  }
+  double DiscountAmount()
+  {
+     discountted=double.parse(_amountController.text) ;
+    if(dropdownValue=='Percentage %'){
+      double totalAmount = (widget.Balance*discountAmount/100);
+      setState(() {
+        discountted = totalAmount;
+      });}
+    else{
+      {
+        double totalAmount = (discountAmount);
+        setState(() {
+          discountted = totalAmount;
+        });}
+    }
+    return discountted;
   }
 
   @override
@@ -104,33 +129,38 @@ class _DiscountState extends State<Discount> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top:4,left: 45,bottom: 20,right: 45),
-                    child: Container(
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: TextFormField(
-                        controller: _amountController,
-                        keyboardType:TextInputType.number,
-                        decoration: InputDecoration(
-                          prefix: dropdownValue =='Percentage %' ? Text('%') : Text('\$'),
-                          helperStyle: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color:Colors.brown),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color:Colors.brown),
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter amount to be discounted';
+                            }
+                            return null;
+                          },
+                          controller: _amountController,
+                          keyboardType:TextInputType.number,
+                          decoration: InputDecoration(
+                            errorStyle: TextStyle(color: Color(0xFFFFD45F),fontWeight: FontWeight.bold,fontSize: 12),
+                            fillColor: Colors.white, filled: true,
+                            prefix: dropdownValue =='Percentage %' ? Text('%') : Text('\$'),
+                            helperStyle: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(color:Colors.brown),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(color:Colors.brown),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -278,11 +308,13 @@ class _DiscountState extends State<Discount> {
                         ),
                         onTap: (){
                           setState(() {
-                            totalAmounttype();
+                            if(_formKey.currentState!.validate()){
+                             totalAmounttype();
+                             DiscountAmount();
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: double.parse(discountedAmount))),
-                            );
+                              MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: double.parse(discountedAmount), Discountt: discountted, Redeem: widget.Redeem,)),
+                                );}
                           });
                         },
                       ),
@@ -304,7 +336,7 @@ class _DiscountState extends State<Discount> {
                         onTap :(){
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance)),
+                            MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance, Discountt: widget.Discountt, Redeem: widget.Redeem,)),
                           );
                         },
                       ),

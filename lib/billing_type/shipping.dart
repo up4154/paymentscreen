@@ -5,7 +5,14 @@ import 'package:paymentscreen/screens/payment_screen.dart';
 class Shipping extends StatefulWidget {
   double Ammount=0.0;
   double Balance=0.0;
-  Shipping({Key? key, required this.Ammount,required this.Balance}) : super(key: key);
+  double Discountt =0.0;
+  int Redeem =0;
+  Shipping({Key? key,
+    required this.Ammount,
+    required this.Balance,
+    required this.Discountt,
+    required this.Redeem
+  }) : super(key: key);
 
   @override
   _ShippingState createState() => _ShippingState();
@@ -20,6 +27,9 @@ class _ShippingState extends State<Shipping> {
   String shippingCharge ='0';
   final _shipChargeController = new TextEditingController();
   final _packageChargeController = new TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _forKey = GlobalKey<FormState>();
+
   String totalAmounttype(){
     shipAmount =double.parse(_shipChargeController.text);
     packageAmount =double.parse(_packageChargeController.text);
@@ -72,16 +82,21 @@ class _ShippingState extends State<Shipping> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top:4,left: 45,bottom: 20,right: 45),
-                          child: Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
+                          child: Form(
+                            key: _forKey,
                             child: TextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the shipping cost';
+                                }
+                                return null;
+                              },
                               controller: _shipChargeController,
                               keyboardType:TextInputType.number,
                               decoration: InputDecoration(
+                                fillColor: Colors.white, filled: true,
+                                errorStyle: TextStyle(color: Color(0xFFFFD45F),fontWeight: FontWeight.bold,fontSize: 12),
+
                                 prefix:  Text('\$'),
                                 hintText: 'Enter Shipping Cost here',
                                 border: OutlineInputBorder(
@@ -112,16 +127,21 @@ class _ShippingState extends State<Shipping> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top:4,left: 45,bottom: 20,right: 45),
-                          child: Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
+                          child: Form(
+                            key: _formKey,
                             child: TextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the packaging cost';
+                                }
+                                return null;
+                              },
                               controller: _packageChargeController,
                               keyboardType:TextInputType.number,
                               decoration: InputDecoration(
+                                fillColor: Colors.white, filled: true,
+                                errorStyle: TextStyle(color: Color(0xFFFFD45F),fontWeight: FontWeight.bold,fontSize: 12),
+
                                 prefix:  Text('\$'),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
@@ -215,11 +235,12 @@ class _ShippingState extends State<Shipping> {
                                 ),
                                 onTap: (){
                                   setState(() {
+                                    if(_forKey.currentState!.validate()&&_formKey.currentState!.validate()){
                                     totalAmounttype();
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => PaymentScreen(Ammount:widget.Ammount , Balance:double.parse(shippingCharge) ,)),
-                                    );
+                                      MaterialPageRoute(builder: (context) => PaymentScreen(Ammount:widget.Ammount , Balance:double.parse(shippingCharge), Discountt: widget.Discountt, Redeem: widget.Redeem ,)),
+                                    );}
                                   });
                                 },
                               ),
@@ -241,7 +262,7 @@ class _ShippingState extends State<Shipping> {
                                 onTap :(){
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance,)),
+                                    MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance, Discountt: widget.Discountt, Redeem: widget.Redeem,)),
                                   );
                                 },
                               ),

@@ -4,7 +4,14 @@ import 'package:paymentscreen/screens/payment_screen.dart';
 class RedeemPoint extends StatefulWidget {
   double Ammount=0.0;
   double Balance=0.0;
-  RedeemPoint({Key? key,required this.Ammount,required this.Balance}) : super(key: key);
+  double Discountt =0.0;
+  int Redeem =0;
+  RedeemPoint({Key? key,
+    required this.Ammount,
+    required this.Balance,
+    required this.Discountt,
+    required this.Redeem
+  }) : super(key: key);
 
   @override
   _RedeemPointState createState() => _RedeemPointState();
@@ -14,7 +21,8 @@ class _RedeemPointState extends State<RedeemPoint> {
   bool isClickedAdd = true;
   bool isClickedCancel = true;
   int points=250;
-  double redeemAmount =0.0;
+  int redeemAmount =0;
+  int redeemed=0;
   String redeemedAmount ='0';
 
   final pointscontroller= new TextEditingController();
@@ -22,12 +30,16 @@ class _RedeemPointState extends State<RedeemPoint> {
   final _formKey = GlobalKey<FormState>();
 
   String totalAmounttype(){
-    redeemAmount =double.parse(pointscontroller.text);
+    redeemAmount =int.parse(pointscontroller.text) ;
     double totalAmount = (widget.Balance - redeemAmount);
     setState(() {
       redeemedAmount =totalAmount.toStringAsFixed(2);
     });
     return redeemedAmount;
+  }
+  int Redeemed(){
+    redeemed =int.parse(pointscontroller.text);
+    return redeemed;
   }
   @override
   Widget build(BuildContext context) {
@@ -69,34 +81,29 @@ class _RedeemPointState extends State<RedeemPoint> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 15,left: 30,right: 20),
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.white,
-                            ),
-                            child: Form(
-                              key: _formKey,
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter points to be redeemed';
-                                  }
-                                  return null;
-                                },
-                                controller: pointscontroller,
-                                keyboardType:TextInputType.number,
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(color:Colors.brown),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(color:Colors.brown),
-                                    ),
-                                    hintText: 'How many Points to Redeem'
-                                ),
+                          child: Form(
+                            key: _formKey,
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter points to be redeemed';
+                                }
+                                return null;
+                              },
+                              controller: pointscontroller,
+                              keyboardType:TextInputType.number,
+                              decoration: InputDecoration(
+                                  errorStyle: TextStyle(color: Color(0xFFFFD45F),fontWeight: FontWeight.bold,fontSize: 12),
+                                  fillColor: Colors.white, filled: true,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(color:Colors.brown),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(color:Colors.brown),
+                                  ),
+                                  hintText: 'How many Points to Redeem'
                               ),
                             ),
                           ),
@@ -164,9 +171,10 @@ class _RedeemPointState extends State<RedeemPoint> {
                                   setState(() {
                                     if(_formKey.currentState!.validate()){
                                     totalAmounttype();
+                                    Redeemed();
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => PaymentScreen(Ammount:widget.Ammount , Balance:double.parse(redeemedAmount) ,)),
+                                      MaterialPageRoute(builder: (context) => PaymentScreen(Ammount:widget.Ammount , Balance:double.parse(redeemedAmount), Discountt: widget.Discountt, Redeem: redeemed ,)),
                                     );}
                                   });
                                 },
@@ -189,7 +197,7 @@ class _RedeemPointState extends State<RedeemPoint> {
                                 onTap :(){
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance,)),
+                                    MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance, Discountt: widget.Discountt, Redeem: widget.Redeem,)),
                                   );
                                 },
                               ),

@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:paymentscreen/billing_type/discount.dart';
 import 'package:paymentscreen/billing_type/redeem.dart';
 import 'package:paymentscreen/billing_type/shipping.dart';
@@ -11,7 +13,13 @@ import 'package:paymentscreen/void.dart';
 class PaymentScreen extends StatefulWidget {
   double Ammount=0.0;
   double Balance=0.0;
-  PaymentScreen({ Key? key, required this.Ammount,required this.Balance}) : super(key: key);
+  double Discountt =0.0;
+  int Redeem =0;
+  PaymentScreen({ Key? key,
+    required this.Ammount
+    ,required this.Balance,
+    required this.Discountt,
+  required this.Redeem}) : super(key: key);
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
@@ -20,10 +28,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
   static double paymentAmount =0;
   var size,height,width;
   double tipAmount =0.0;
-  // double balanceAmount=0.00;
   String toBePaid ='0';
   int _currentIndex = 0;
-  bool isClicked1 = true;
+  bool isClicked1 = false;
   bool isClicked2 = true;
   bool isClicked3 = true;
   bool isClicked4 = true;
@@ -35,6 +42,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   final _tipController = new TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  final _Key = GlobalKey<FormState>();
 
   setBottomBarIndex(index){
     setState(() {
@@ -69,6 +77,578 @@ class _PaymentScreenState extends State<PaymentScreen> {
       data['other'],
     ];
     return paymentMethod;
+  }
+  Widget selectPaymentMode(){
+    if(isClicked1 ==false){
+      return Container(
+        height: 320 ,
+        width: width,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('CASH',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      )
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20,right: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8,left: 8),
+                                  child: Text('Payment Amount',
+                                    style:TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400
+                                    ) ,),
+                                ),
+                                Container(
+                                  height: 50,
+                                  child: TextField(
+                                    enableInteractiveSelection: false,
+                                    focusNode: new AlwaysDisabledFocusNode(),
+                                    keyboardType:TextInputType.number,
+                                    decoration: InputDecoration(
+                                      hintText: '\$'+paymentAmount.toStringAsFixed(2),
+                                      hintStyle: TextStyle(
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(color:Colors.brown),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(color:Colors.brown),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8,right: 30),
+                                  child: Text('Discount Amount',
+                                    style:TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                    ) ,),
+                                ),
+                                Container(
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(35),
+                                        color :Color(0xFFFFD45F),
+                                      ),
+                                      width: 160,
+                                      height: 50,
+                                      child: Center(
+                                          child: Text(
+                                            '\$'+widget.Discountt.toStringAsFixed(2),
+                                            textScaleFactor: 1.25,
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                          ))),
+                                ),
+                              ]
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8,right: 30),
+                                  child: Text('Redeemed Points',
+                                    style:TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+
+                                    ) ,),
+                                ),
+                                Container(
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(35),
+                                        color :Color(0xFFFFD45F),
+                                      ),
+                                      width: 160,
+                                      height: 50,
+                                      child: Center(
+                                          child: Text(
+                                            widget.Redeem.toString(),
+                                            textScaleFactor: 1.25,
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                          ))),
+
+                                ),
+                              ]
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20,right: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8,left: 8),
+                                  child: Text('Tip Amount',
+                                    style:TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400
+                                    ) ,),
+                                ),
+                                Container(
+                                  height: 50,
+                                  child: Form(
+                                    key: _formKey,
+                                    child: TextFormField(
+                                      readOnly: isEnabled,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter tip amount';
+                                        }
+                                        return null;
+                                      },
+                                      controller: _tipController,
+                                      keyboardType:TextInputType.number,
+                                      decoration: InputDecoration(
+                                        prefix: Text('\$'),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(30),
+                                          borderSide: BorderSide(color:Colors.brown),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(30),
+                                          borderSide: BorderSide(color:Colors.brown),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8,),
+                                  child: Text('Balance Amount',
+                                    style:TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+
+                                    ) ,),
+                                ),
+                                Container(
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(35),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            offset: const Offset(
+                                              1.0,
+                                              1.0,
+                                            ), //Offset
+                                            blurRadius: 6.0,
+                                            spreadRadius: 2.0,
+                                          ), //BoxShadow
+                                          BoxShadow(
+                                            color: Colors.white,
+                                            offset: const Offset(0.0, 0.0),
+                                            blurRadius: 0.0,
+                                            spreadRadius: 0.0,
+                                          ),],
+                                        color :Color(0xFFFFD45F),
+                                      ),
+                                      width: 160,
+                                      height: 50,
+                                      child: Center(
+                                          child: Text(
+                                            '\$'+widget.Balance.toStringAsFixed(2),
+                                            textScaleFactor: 1.25,
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                          ))),
+
+                                ),
+                              ]
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    }
+
+
+
+
+    else if(isClicked2==false){
+      return  Container(
+        height: 320 ,
+        width: width,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('CARD',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold
+                        )
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20,right: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8,left: 8),
+                                    child: Text('Payment Amount',
+                                      style:TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400
+                                      ) ,),
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    child: TextField(
+                                      enableInteractiveSelection: false,
+                                      focusNode: new AlwaysDisabledFocusNode(),
+                                      keyboardType:TextInputType.number,
+                                      decoration: InputDecoration(
+                                        hintText: '\$'+paymentAmount.toStringAsFixed(2),
+                                        hintStyle: TextStyle(
+                                            fontWeight: FontWeight.bold
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(30),
+                                          borderSide: BorderSide(color:Colors.brown),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(30),
+                                          borderSide: BorderSide(color:Colors.brown),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20,right: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8,left: 8),
+                                    child: Text('Card Number',
+                                      style:TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400
+                                      ) ,),
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    child: Form(
+                                      key: _Key,
+                                      child: TextFormField(
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(4)
+                                        ],
+                                        readOnly: isEnabled,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter last 4 digit of your card number';
+                                          }
+                                          return null;
+                                        },
+                                        keyboardType:TextInputType.number,
+                                        obscureText: true,
+                                        decoration: InputDecoration(
+
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(30),
+                                            borderSide: BorderSide(color:Colors.brown),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(30),
+                                            borderSide: BorderSide(color:Colors.brown),
+                                          ),
+                                        ),
+
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8,right: 30),
+                                    child: Text('Discount Amount',
+                                      style:TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                      ) ,),
+                                  ),
+                                  Container(
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(35),
+                                          color :Color(0xFFFFD45F),
+                                        ),
+                                        width: 160,
+                                        height: 50,
+                                        child: Center(
+                                            child: Text(
+                                              '\$'+widget.Discountt.toStringAsFixed(2),
+                                              textScaleFactor: 1.25,
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                            ))),
+                                  ),
+                                ]
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8,right: 30),
+                                    child: Text('Redeemed Points',
+                                      style:TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+
+                                      ) ,),
+                                  ),
+                                  Container(
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(35),
+                                          color :Color(0xFFFFD45F),
+                                        ),
+                                        width: 160,
+                                        height: 50,
+                                        child: Center(
+                                            child: Text(
+                                              widget.Redeem.toString(),
+                                              textScaleFactor: 1.25,
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                            ))),
+
+                                  ),
+                                ]
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20,right: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8,left: 8),
+                                    child: Text('Tip Amount',
+                                      style:TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400
+                                      ) ,),
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    child: Form(
+                                      key: _formKey,
+                                      child: TextFormField(
+                                        readOnly: isEnabled,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter tip amount';
+                                          }
+                                          return null;
+                                        },
+                                        controller: _tipController,
+                                        keyboardType:TextInputType.number,
+                                        decoration: InputDecoration(
+                                          prefix: Text('\$'),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(30),
+                                            borderSide: BorderSide(color:Colors.brown),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(30),
+                                            borderSide: BorderSide(color:Colors.brown),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8,right: 30),
+                                    child: Text('Balance Amount',
+                                      style:TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+
+                                      ) ,),
+                                  ),
+                                  Container(
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(35),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey,
+                                              offset: const Offset(
+                                                1.0,
+                                                1.0,
+                                              ), //Offset
+                                              blurRadius: 6.0,
+                                              spreadRadius: 2.0,
+                                            ), //BoxShadow
+                                            BoxShadow(
+                                              color: Colors.white,
+                                              offset: const Offset(0.0, 0.0),
+                                              blurRadius: 0.0,
+                                              spreadRadius: 0.0,
+                                            ),],
+                                          color :Color(0xFFFFD45F),
+                                        ),
+                                        width: 160,
+                                        height: 50,
+                                        child: Center(
+                                            child: Text(
+                                              '\$'+widget.Balance.toStringAsFixed(2),
+                                              textScaleFactor: 1.25,
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                            ))),
+
+                                  ),
+                                ]
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),)
+      );
+    }
+    else if(isClicked3==false){
+      return Container(
+        height: 300,
+        child: Center(
+          child: Text('Cheque Service not started yet'),
+        ),
+      );
+    }
+    else if(isClicked4==false){
+      return Container(
+        height: 300,
+        child: Center(
+          child: Text('Bank Transfer  Service not started yet'),
+        ),
+      );
+    }
+    else if(isClicked5==false){
+      return Container(
+        height: 300,
+        child: Center(
+          child: Text('Other Services not started yet'),
+        ),
+      );
+    }
+    return Container();
   }
   @override
   void initState() {
@@ -188,8 +768,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             size: 30,
                           ),
                           onPressed: () {
-                            setState(() {
-                            });
+                            showDialog(
+                                context: context,
+                                builder: (context){
+                                  return Shipping(Ammount: widget.Ammount, Balance: widget.Balance, 
+                                    Discountt: widget.Discountt, Redeem: widget.Redeem,);
+                                }
+                            );
                           },
                         ),
                         CircleAvatar(
@@ -209,7 +794,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return Discount(Ammount: widget.Ammount, Balance: widget.Balance,);
+                                        return Discount(Ammount: widget.Ammount, Balance: widget.Balance, Discountt: widget.Discountt, Redeem: widget.Redeem,);
                                       }
                                   );
                                 },
@@ -268,7 +853,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return RedeemPoint(Ammount: widget.Ammount, Balance: widget.Ammount,);
+                                        return RedeemPoint(Ammount: widget.Ammount,
+                                          Balance: widget.Ammount,
+                                          Discountt: widget.Discountt, Redeem: widget.Redeem,);
                                       }
                                   );
                                 },
@@ -297,7 +884,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (context){
-                                        return Shipping(Ammount: widget.Ammount, Balance: widget.Balance,);
+                                        return Shipping(Ammount: widget.Ammount, Balance: widget.Balance,
+                                          Discountt: widget.Discountt, Redeem: widget.Redeem,);
                                       }
                                   );
                                 },
@@ -592,218 +1180,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 color: Colors.grey[300],
               ),
             ),
-            Container(
-              height: 210 ,
-              width: width,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('CARD',
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold
-                            )
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20,right: 20),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(bottom: 8,left: 8),
-                                        child: Text('Payment Amount',
-                                          style:TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400
-                                          ) ,),
-                                      ),
-                                      Container(
-                                        height: 50,
-                                        child: TextField(
-                                          enableInteractiveSelection: false,
-                                          focusNode: new AlwaysDisabledFocusNode(),
-                                          keyboardType:TextInputType.number,
-                                          decoration: InputDecoration(
-                                            hintText: '\$'+paymentAmount.toStringAsFixed(2),
-                                            hintStyle: TextStyle(
-                                              fontWeight: FontWeight.bold
-                                            ),
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(30),
-                                              borderSide: BorderSide(color:Colors.brown),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(30),
-                                              borderSide: BorderSide(color:Colors.brown),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20,right: 20),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(bottom: 8,left: 8),
-                                        child: Text('Tip Amount',
-                                          style:TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400
-                                          ) ,),
-                                      ),
-                                      Container(
-                                        height: 50,
-                                        child: Form(
-                                          key: _formKey,
-                                          child: TextFormField(
-                                            readOnly: isEnabled,
-                                            validator: (value) {
-                                              if (value == null || value.isEmpty) {
-                                                return 'Please enter tip amount';
-                                              }
-                                              return null;
-                                            },
-                                            controller: _tipController,
-                                            keyboardType:TextInputType.number,
-                                            decoration: InputDecoration(
-                                              prefix: Text('\$'),
-                                              border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(30),
-                                                borderSide: BorderSide(color:Colors.brown),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(30),
-                                                borderSide: BorderSide(color:Colors.brown),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20,right: 20),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(bottom: 8,left: 8),
-                                        child: Text('Card Number',
-                                          style:TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400
-                                          ) ,),
-                                      ),
-                                      Container(
-                                        height: 50,
-                                        child: TextFormField(
-
-                                          keyboardType:TextInputType.number,
-                                          obscureText: true,
-                                          decoration: InputDecoration(
-
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(30),
-                                              borderSide: BorderSide(color:Colors.brown),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(30),
-                                              borderSide: BorderSide(color:Colors.brown),
-                                            ),
-                                          ),
-
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 8,),
-                                      child: Text('Balance Amount',
-                                        style:TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
-
-                                        ) ,),
-                                    ),
-                                    Container(
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(35),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.grey,
-                                                  offset: const Offset(
-                                                    1.0,
-                                                    1.0,
-                                                  ), //Offset
-                                                  blurRadius: 6.0,
-                                                  spreadRadius: 2.0,
-                                                ), //BoxShadow
-                                                BoxShadow(
-                                                  color: Colors.white,
-                                                  offset: const Offset(0.0, 0.0),
-                                                  blurRadius: 0.0,
-                                                  spreadRadius: 0.0,
-                                                ),],
-                                              color :Color(0xFFFFD45F),
-                                            ),
-                                            width: 160,
-                                            height: 50,
-                                            child: Center(
-                                                child: Text(
-                                                  '\$'+widget.Balance.toStringAsFixed(2),
-                                                  textScaleFactor: 1.0,
-                                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                                ))),
-
-                                      ),
-                                  ]
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
+            selectPaymentMode(),
             Container(
               padding: EdgeInsets.only(left: 30,right: 30),
               child: Divider(
@@ -920,7 +1297,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         onPressed:(){
                           setState(() {
                             Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance,)),
+                              MaterialPageRoute(builder: (context) => 
+                                  PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance,
+                                    Discountt: widget.Discountt, Redeem: widget.Redeem,)),
                             );
                           });
                         },
@@ -944,12 +1323,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       activeColor: Color(0xFFFFD45F),
                       onChanged: (value) {
                         setState(() {
-                          if(_formKey.currentState!.validate())
+                          if(isClicked2==false)
+                          {
+                            if( _Key.currentState!.validate() && _formKey.currentState!.validate())
                           {
                             this.isEnabled = value!;
                             totalAmount();
                           }
-                        });
+                        }
+                          else if(isClicked1 ==false){
+                            if(_formKey.currentState!.validate())
+                            {
+                              this.isEnabled = value!;
+                              totalAmount();
+                            }
+                          }
+                        }
+                        );
                       },
                     ),
                     Text(
@@ -957,41 +1347,142 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     )
                   ],
                 ),
-                Container(
-                  child: InkWell(
-                    onTap:isEnabled ? ()=> print('hello'): null,
-                    child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(35),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: const Offset(
-                                1.0,
-                                1.0,
-                              ), //Offset
-                              blurRadius: 6.0,
-                              spreadRadius: 2.0,
-                            ), //BoxShadow
-                            BoxShadow(
-                              color: Colors.white,
-                              offset: const Offset(0.0, 0.0),
-                              blurRadius: 0.0,
-                              spreadRadius: 0.0,
-                            ),],
-                          color : isEnabled  ?  Color(0xFFFFD45F):Colors.grey,
-                        ),
-                        margin: EdgeInsets.only(top: 10),
-                        width: 200,
-                        height: 45,
-                        child: Center(
-                            child: Text(
-                              'Pay:'+widget.Balance.toStringAsFixed(2),
-                              textScaleFactor: 1.0,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ))),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      child: InkWell(
+                        onTap:(){
+                          setState(() {
 
-                  ),
+                          });
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(35),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: const Offset(
+                                    1.0,
+                                    1.0,
+                                  ), //Offset
+                                  blurRadius: 6.0,
+                                  spreadRadius: 2.0,
+                                ), //BoxShadow
+                                BoxShadow(
+                                  color: Colors.white,
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ),],
+                              color :Color(0xFFFFD45F),
+                            ),
+                            margin: EdgeInsets.only(top: 10),
+                            width: 100,
+                            height: 45,
+                            child: Center(
+                                child:Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.pause_outlined),
+                                    Text(
+                                      'Hold',
+                                      textScaleFactor: 1.5,
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+
+                                  ],
+                                ) )),
+
+                      ),
+                    ),
+                    Container(
+                      child: InkWell(
+                        onTap:isEnabled ? ()=> print('hello'): null,
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(35),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: const Offset(
+                                    1.0,
+                                    1.0,
+                                  ), //Offset
+                                  blurRadius: 6.0,
+                                  spreadRadius: 2.0,
+                                ), //BoxShadow
+                                BoxShadow(
+                                  color: Colors.white,
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ),],
+                              color : isEnabled  ?  Color(0xFFFFD45F):Colors.grey,
+                            ),
+                            margin: EdgeInsets.only(top: 10),
+                            width: 100,
+                            height: 45,
+                            child: Center(
+                                child:Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.credit_card),
+                                    Text(
+                                      'Pay',
+                                      textScaleFactor: 1.5,
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+
+                                  ],
+                                ) )),
+
+                      ),
+                    ),Container(
+                      child: InkWell(
+                        onTap:isEnabled ? ()=> print('hello'): null,
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(35),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: const Offset(
+                                    1.0,
+                                    1.0,
+                                  ), //Offset
+                                  blurRadius: 6.0,
+                                  spreadRadius: 2.0,
+                                ), //BoxShadow
+                                BoxShadow(
+                                  color: Colors.white,
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ),],
+                              color : isEnabled  ?  Color(0xFFFFD45F):Colors.grey,
+                            ),
+                            margin: EdgeInsets.only(top: 10),
+                            width: 100,
+                            height: 45,
+                            child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.print_outlined),
+                                    Text(
+                                      'Print',
+                                      textScaleFactor: 1.5,
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+
+                                  ],
+                                ))),
+
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
