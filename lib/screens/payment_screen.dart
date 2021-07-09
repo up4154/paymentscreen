@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:paymentscreen/void.dart';
 
 
+
 class PaymentScreen extends StatefulWidget {
   double Ammount=0.0;
   double Balance=0.0;
@@ -1206,131 +1207,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 color: Colors.grey[300],
               ),
             ),
-            _currentIndex == 3 ?  new Container(
-              height: 70,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: const Offset(
-                      1.0,
-                      1.0,
-                    ), //Offset
-                    blurRadius: 6.0,
-                    spreadRadius: 2.0,
-                  ), //BoxShadow
-                  BoxShadow(
-                    color: Colors.white,
-                    offset: const Offset(0.0, 0.0),
-                    blurRadius: 0.0,
-                    spreadRadius: 0.0,
-                  ),],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      IconButton(
-                        onPressed:(){
-                          setState(() {
-                          });
-                        },
-                        iconSize: 25,
-                        icon: Icon(Icons.table_chart_outlined,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                      Text('Tables',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                        ),)
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      IconButton(
-                        onPressed:(){
-                          setState(() {
-                          });
-                        },
-                        iconSize: 29,
-                        icon: Icon(Icons.play_arrow_sharp,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                      Text('Resume',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                        ),
-                      )
-                    ],
-                  ),Column(
-                    children: [
-                      IconButton(
-                        onPressed:(){
-                            showDialog(
-                                context: context,
-                                builder: (context){
-                                  return VoidBill(Ammount: widget.Ammount);
-                                }
-                            );
-                        },
-                        iconSize: 25,
-                        icon: Icon(Icons.delete,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                      Text('Void',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                        ),)
-                    ],
-                  ),Column(
-                    children: [
-                      IconButton(
-                        onPressed:(){
-                          setState(() {
-                          });
-                        },
-                        iconSize: 25,
-                        icon: Icon(Icons.clear_all_sharp,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                      Text('Clear',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                        ),)
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      IconButton(
-                        onPressed:(){
-                          setState(() {
-                            Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => 
-                                  PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance,
-                                    Discountt: widget.Discountt, Redeem: widget.Redeem,)),
-                            );
-                          });
-                        },
-                        iconSize: 40,
-                        icon: Icon(Icons.keyboard_arrow_down_outlined,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                    ],
-                  ),
-
-                ],
-              ),
-            ):Column(
+            Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -1505,6 +1382,130 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ],
         ),
       ),
+      bottomSheet:_currentIndex == 3 ? new Container(
+        height: 70,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              offset: const Offset(
+                1.0,
+                1.0,
+              ), //Offset
+              blurRadius: 6.0,
+              spreadRadius: 2.0,
+            ), //BoxShadow
+            BoxShadow(
+              color: Colors.white,
+              offset: const Offset(0.0, 0.0),
+              blurRadius: 0.0,
+              spreadRadius: 0.0,
+            ),],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Column(
+              children: [
+                IconButton(
+                  onPressed:(){
+                    setState(() {
+                    });
+                  },
+                  iconSize: 25,
+                  icon: Icon(Icons.table_chart_outlined,
+                    color: Colors.grey[800],
+                  ),
+                ),
+                Text('Tables',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[800],
+                  ),)
+              ],
+            ),
+            Column(
+              children: [
+                IconButton(
+                  onPressed:(){
+                    setState(() {
+                    });
+                  },
+                  iconSize: 29,
+                  icon: Icon(Icons.play_arrow_sharp,
+                    color: Colors.grey[800],
+                  ),
+                ),
+                Text('Resume',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[800],
+                  ),
+                )
+              ],
+            ),Column(
+              children: [
+                IconButton(
+                  onPressed:(){
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return VoidBill(Ammount: paymentAmount,);
+                        }
+                    );
+                  },
+                  iconSize: 25,
+                  icon: Icon(Icons.delete,
+                    color: Colors.grey[800],
+                  ),
+                ),
+                Text('Void',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[800],
+                  ),)
+              ],
+            ),Column(
+              children: [
+                IconButton(
+                  onPressed:(){
+                    setState(() {
+                    });
+                  },
+                  iconSize: 25,
+                  icon: Icon(Icons.clear_all_sharp,
+                    color: Colors.grey[800],
+                  ),
+                ),
+                Text('Clear',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[800],
+                  ),)
+              ],
+            ),
+            Column(
+              children: [
+                IconButton(
+                  onPressed:(){
+                    setState(() {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>  PaymentScreen(Ammount: widget.Ammount, Balance: widget.Balance,
+                          Discountt: widget.Discountt, Redeem: widget.Redeem,)),
+                      );
+                    });
+                  },
+                  iconSize: 40,
+                  icon: Icon(Icons.keyboard_arrow_down_outlined,
+                    color: Colors.grey[800],
+                  ),
+                ),
+              ],
+            ),
+
+          ],
+        ),
+      ):null ,
     );
   }
 }
