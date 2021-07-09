@@ -932,7 +932,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Container(
               height: 170 ,
               width: width,
-              color:Colors.white,
+              color:Colors.white54,
               child: Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: Column(
