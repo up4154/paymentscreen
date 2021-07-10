@@ -7,8 +7,9 @@ import 'package:paymentscreen/billing_type/redeem.dart';
 import 'package:paymentscreen/billing_type/shipping.dart';
 import 'package:paymentscreen/billing_type/split_payment.dart';
 import 'package:http/http.dart' as http;
-import 'package:paymentscreen/void.dart';
-
+import 'package:paymentscreen/utils/notification.dart';
+import 'package:paymentscreen/utils/void.dart';
+import 'package:badges/badges.dart';
 
 
 class PaymentScreen extends StatefulWidget {
@@ -674,6 +675,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int _counter = 1;
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
@@ -777,20 +779,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           child: Text("TABLE -11",
                             style: TextStyle(fontSize: 23,fontWeight: FontWeight.w500),),
                         ),
-                        IconButton(
-                          alignment:Alignment.topRight,
-                          icon: const Icon(Icons.notifications,
-                            size: 30,
+                        Badge(
+                          badgeColor: Colors.white,
+                          position: BadgePosition.topEnd(top: 0, end: 3),
+                          animationDuration: Duration(milliseconds: 300),
+                          animationType: BadgeAnimationType.slide,
+                          badgeContent: Text(
+                            _counter.toString(),
+                            style: TextStyle(color: Colors.black),
                           ),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (context){
-                                  return Shipping(Ammount: widget.Ammount, Balance: widget.Balance,
-                                    Discountt: widget.Discountt, Redeem: widget.Redeem,);
-                                }
-                            );
-                          },
+                          child: IconButton(
+                            alignment:Alignment.topRight,
+                            icon: const Icon(Icons.notifications,
+                              size: 30,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context){
+                                    return OnlineOrder();
+                                  }
+                              );
+                            },
+                          ),
                         ),
                         CircleAvatar(
                             backgroundImage: NetworkImage('https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')

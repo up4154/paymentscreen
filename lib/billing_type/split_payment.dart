@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SplitPay extends StatefulWidget {
@@ -14,30 +13,15 @@ class _SplitPayState extends State<SplitPay> {
 
   int items=2;
   String dropdownValue1 ='Cash';
+  String dropdownValue2 ='Card';
   bool isClickedAdd= true;
   bool isClickedCancel= true;
   bool addRow = false;
-  bool isClickedRow = false;
   List<String> split =[];
-  double sum =0.0;
-  double Sum =0.0;
   String temp ='0';
-   double checkSum (){
-     Sum = double.parse(temp);
-     Sum+=sum;
-     return Sum;
-   }
-   bool isEnabled (){
-     if(checkSum()==widget.Ammount)
-       return true;
-     else
-       return false;
-   }
-   bool isActive = true;
-
+  bool isActive = true;
   @override
   Widget build(BuildContext context) {
-     isActive=isEnabled();
     return Dialog(
         insetPadding: EdgeInsets.only(left: 20,right: 20,top: 140),
         backgroundColor: Colors.transparent,
@@ -75,6 +59,8 @@ class _SplitPayState extends State<SplitPay> {
                                       setState(() {
                                         temp=text;
                                       });
+                                      print(temp);
+                                      print(split);
                                     },
                                     keyboardType:TextInputType.number,
                                     decoration: InputDecoration(
@@ -176,40 +162,42 @@ class _SplitPayState extends State<SplitPay> {
                     });
                   }
               ),
-              Container(
-                child: InkWell(
-                  onTap:isActive ? ()=> print('hello'): null,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(35),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            offset: const Offset(
-                              1.0,
-                              1.0,
-                            ), //Offset
-                            blurRadius: 6.0,
-                            spreadRadius: 2.0,
-                          ), //BoxShadow
-                          BoxShadow(
-                            color: Colors.white,
-                            offset: const Offset(0.0, 0.0),
-                            blurRadius: 0.0,
-                            spreadRadius: 0.0,
-                          ),],
-                        color : isActive ?  Color(0xFFFFD45F):Colors.grey,
-                      ),
-                      margin: EdgeInsets.only(top: 10),
-                      width: 100,
-                      height: 45,
-                      child: Center(
-                          child: Text(
-                            'Pay:\$'+widget.Ammount.toStringAsFixed(2),
-                            textScaleFactor: 1.0,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ))),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Container(
+                  child: InkWell(
+                    onTap:isActive ? ()=> print('hello'): null,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(35),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: const Offset(
+                                1.0,
+                                1.0,
+                              ), //Offset
+                              blurRadius: 6.0,
+                              spreadRadius: 2.0,
+                            ), //BoxShadow
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: const Offset(0.0, 0.0),
+                              blurRadius: 0.0,
+                              spreadRadius: 0.0,
+                            ),],
+                          color : isActive ?  Color(0xFFFFD45F):Colors.grey,
+                        ),
+                        width: 130,
+                        height: 40,
+                        child: Center(
+                            child: Text(
+                              'Proceed to Pay',
+                              textScaleFactor: 1.0,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ))),
 
+                  ),
                 ),
               ),
               // Container(
@@ -258,17 +246,3 @@ class _SplitPayState extends State<SplitPay> {
     );
   }
 }
-// class Test extends StatefulWidget {
-//   Test({Key? key}) : super(key: key);
-//
-//   @override
-//   _TestState createState() => _TestState();
-// }
-//
-// class _TestState extends State<Test> {
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return
-//   }
-// }

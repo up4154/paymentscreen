@@ -42,7 +42,7 @@ class _ShippingState extends State<Shipping> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        insetPadding: EdgeInsets.only(left: 20,right: 20,top: 140),
+        insetPadding: EdgeInsets.only(left: 20,right: 20,top: 110),
         backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         elevation: 16,
@@ -51,7 +51,7 @@ class _ShippingState extends State<Shipping> {
           padding: const EdgeInsets.only(top: 8.0),
           child: SingleChildScrollView(
             child: Container(
-                height: 500,
+                height: 550,
                 child: ListView(
                   children: [
                     Column(
